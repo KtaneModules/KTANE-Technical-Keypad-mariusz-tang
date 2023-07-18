@@ -1,0 +1,10 @@
+{
+  "name": "jammod-Editor",
+  "references": [
+    "jammod"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
