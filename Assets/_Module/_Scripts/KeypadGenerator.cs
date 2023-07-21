@@ -62,22 +62,28 @@ public static class KeypadGenerator
                     rowPair.Add(colPair.PickRandom());
                 else
                     colPair.Add(rowPair.PickRandom());
-                interPoints.Add(pos);
             }
             else {
-                var tryDigit = Rnd.Range(0, 10 - rowPair.Count);
-                while (rowPair.Contains(tryDigit))
-                    tryDigit = (tryDigit + 1) % 10;
-                rowPair.Add(tryDigit);
-
-                tryDigit = Rnd.Range(0, 10 - colPair.Count);
-                while (colPair.Contains(tryDigit))
-                    tryDigit = (tryDigit + 1) % 10;
-                colPair.Add(tryDigit);
-
-                if (rowPair.Any(d => colPair.Contains(d)))
-                    interPoints.Add(pos);
+                int tryDigit;
+                if (rowPair.Count < 2) {
+                    tryDigit = Rnd.Range(0, 10 - colPair.Count);
+                    while (rowPair.Contains(tryDigit))
+                        tryDigit = (tryDigit + 1) % 10;
+                    rowPair.Add(tryDigit);
+                }
+                if (colPair.Count < 2) {
+                    tryDigit = Rnd.Range(0, 10 - colPair.Count);
+                    while (colPair.Contains(tryDigit))
+                        tryDigit = (tryDigit + 1) % 10;
+                    colPair.Add(tryDigit);
+                }
             }
+        }
+        foreach (int pos in positions) {
+            var rowPair = rowPairs[pos / 3];
+            var colPair = colPairs[pos % 3];
+            if (rowPair.Any(d => colPair.Contains(d)))
+                interPoints.Add(pos);
         }
         var pairLists = new List<int>[][] { rowPairs, colPairs };
         string digitText = string.Empty;
