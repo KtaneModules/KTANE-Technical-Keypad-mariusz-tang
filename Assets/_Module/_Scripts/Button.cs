@@ -8,12 +8,14 @@ public class Button : MonoBehaviour
 
     private KMAudio _audio;
     private Animator _animator;
+    private KMHighlightable _highlight;
 
     public KMSelectable Selectable { get; private set; }
 
     protected virtual void Awake() {
         _audio = GetComponentInParent<KMAudio>();
         _animator = GetComponent<Animator>();
+        _highlight = GetComponentInChildren<KMHighlightable>();
 
         Selectable = GetComponent<KMSelectable>();
         Selectable.OnInteract += () => {
@@ -29,5 +31,5 @@ public class Button : MonoBehaviour
 
     public void Enable() => SetState(true);
     public void Disable() => SetState(false);
-    public void SetState(bool shouldBeEnabled) => Selectable.enabled = shouldBeEnabled;
+    public void SetState(bool shouldBeEnabled) => _highlight.enabled = shouldBeEnabled;
 }

@@ -39,6 +39,9 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         for (int pos = 0; pos < 9; pos++)
             _buttons[pos].Colour = _keypadInfo.Colours[pos];
 
+        _buttons[0].Selectable.OnInteract += () => { Strike("bruh"); return false; };
+        _buttons[1].Selectable.OnInteract += () => { Solve(); return false; };
+
         Log($"Intersection points are {_keypadInfo.IntersectionPositions.Join(", ")}");
     }
 #pragma warning restore IDE0051

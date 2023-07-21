@@ -11,9 +11,9 @@ public class ButtonHatch : MonoBehaviour
     private void Awake() {
         _animator = GetComponent<Animator>();
         _button = GetComponentInChildren<Button>();
-
-        DisableButton();
     }
+
+    private void Start() => DisableButton();
 
     // Animation events
     private void EnableButton() => _button.Enable();

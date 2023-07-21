@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1162291649834066
 GameObject:
   m_ObjectHideFlags: 1
@@ -737,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1385328791629514
 GameObject:
   m_ObjectHideFlags: 1
@@ -1232,6 +1232,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4073847629674144}
+  - component: {fileID: 114617974996757442}
   m_Layer: 0
   m_Name: StatusLight
   m_TagString: Untagged
@@ -1457,7 +1458,7 @@ GameObject:
   - component: {fileID: 23697285628288020}
   - component: {fileID: 114764892433888162}
   m_Layer: 0
-  m_Name: StatusLight
+  m_Name: Spinner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6677,8 +6678,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 10
-  m_Range: 0.02
+  m_Intensity: 0
+  m_Range: 0.06
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -6713,8 +6714,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 10
-  m_Range: 0.02
+  m_Intensity: 0
+  m_Range: 0.06
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -7208,7 +7209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - Particles/Standard Surface
+  - Standard
 --- !u!114 &114339935624284934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7747,6 +7748,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - Standard
+--- !u!114 &114617974996757442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653958690889964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebeabffa5376d248a71bae0eaf6f340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spinner: {fileID: 4698334861087898}
+  _cover: {fileID: 23741450953800010}
+  _lights:
+  - {fileID: 108862816404069552}
+  - {fileID: 108566984480463482}
 --- !u!114 &114626873317676656
 MonoBehaviour:
   m_ObjectHideFlags: 1

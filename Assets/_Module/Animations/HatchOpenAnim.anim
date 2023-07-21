@@ -644,14 +644,14 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 1.9833333
-    functionName: DisableSelectable
+    functionName: DisableButton
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2
-    functionName: EnableSelectable
+    functionName: EnableButton
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
