@@ -31,5 +31,5 @@ public class Button : MonoBehaviour
 
     public void Enable() => SetState(true);
     public void Disable() => SetState(false);
-    public void SetState(bool shouldBeEnabled) => _highlight.enabled = shouldBeEnabled;
+    public void SetState(bool shouldBeEnabled) => _highlight.gameObject.SetActive(shouldBeEnabled);
 }

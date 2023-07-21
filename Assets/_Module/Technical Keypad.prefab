@@ -761,6 +761,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4457433574861448}
+  - component: {fileID: 114074714633826684}
   m_Layer: 0
   m_Name: LedBottom
   m_TagString: Untagged
@@ -794,6 +795,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4221196599095448}
+  - component: {fileID: 114566802363106120}
   m_Layer: 0
   m_Name: LedTop
   m_TagString: Untagged
@@ -1338,6 +1340,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4488971495800744}
+  - component: {fileID: 114422488804932526}
   m_Layer: 0
   m_Name: LedMiddle
   m_TagString: Untagged
@@ -3765,7 +3768,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 909061fe6b7b2b4498bafd14fba1a720, type: 2}
+  - {fileID: 2100000, guid: 51c553e9e7c9e8f489891186e2412621, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3969,7 +3972,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: aa8bf98c18957a241804d0d2d1b610e3, type: 2}
+  - {fileID: 2100000, guid: 84f67ace8e5196c479088ff81666ce9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4071,7 +4074,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a2b7706732e62f54f87168b4eba3692f, type: 2}
+  - {fileID: 2100000, guid: 51c553e9e7c9e8f489891186e2412621, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4921,7 +4924,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 59bda387933f5e147834c3da41e56e0b, type: 2}
+  - {fileID: 2100000, guid: 51c553e9e7c9e8f489891186e2412621, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5533,7 +5536,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2b969198390d0fb49a63a2b0aca5948c, type: 2}
+  - {fileID: 2100000, guid: 84f67ace8e5196c479088ff81666ce9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5839,7 +5842,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4b18d9e11fd90214dbbeecc0cdc85e6a, type: 2}
+  - {fileID: 2100000, guid: 84f67ace8e5196c479088ff81666ce9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6667,7 +6670,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: ae5cc73558d08514fb02c5c3f58b4a25, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4286940549
+    rgba: 4278190080
 --- !u!108 &108566984480463482
 Light:
   m_ObjectHideFlags: 1
@@ -6820,6 +6823,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - Standard
+--- !u!114 &114074714633826684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389272905828852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652b82e11f37d8840aeefdd4e36eb4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colour: {r: 1, g: 0, b: 0, a: 1}
+  _cover: {fileID: 23196163697267628}
+  _ledInner: {fileID: 23607633331479602}
 --- !u!114 &114085954412180062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7116,7 +7133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1772467531892464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b682ebe2e3da2141a3fa5d23f7b2a4c, type: 3}
+  m_Script: {fileID: 11500000, guid: b78cfc30f794e5f46a81b5d976679770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114281142525955034
@@ -7326,6 +7343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab10cc088966b847821097cca14a485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _digitDisplay: {fileID: 114269840984441404}
   _buttons:
   - {fileID: 114842194362929570}
   - {fileID: 114522933628674814}
@@ -7336,7 +7354,11 @@ MonoBehaviour:
   - {fileID: 114658957284699302}
   - {fileID: 114941477710338516}
   - {fileID: 114882611354678022}
-  _digitDisplay: {fileID: 114269840984441404}
+  _leds:
+  - {fileID: 114566802363106120}
+  - {fileID: 114422488804932526}
+  - {fileID: 114074714633826684}
+  _submitHatch: {fileID: 114537118289933326}
 --- !u!114 &114399105502489032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7374,6 +7396,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - Standard
+--- !u!114 &114422488804932526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689558203040114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652b82e11f37d8840aeefdd4e36eb4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colour: {r: 1, g: 1, b: 0, a: 1}
+  _cover: {fileID: 23987054504821494}
+  _ledInner: {fileID: 23116139461626022}
 --- !u!114 &114439727228553168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7644,6 +7680,20 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
+--- !u!114 &114566802363106120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1407195416066434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652b82e11f37d8840aeefdd4e36eb4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colour: {r: 0, g: 1, b: 0, a: 1}
+  _cover: {fileID: 23865980110071400}
+  _ledInner: {fileID: 23216760091079556}
 --- !u!114 &114568936279589344
 MonoBehaviour:
   m_ObjectHideFlags: 1
