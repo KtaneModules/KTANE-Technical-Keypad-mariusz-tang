@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 114383545618679204}
   - component: {fileID: 114860612399976776}
   m_Layer: 0
-  m_Name: Jam Mod
+  m_Name: Technical Keypad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,6 +1543,7 @@ GameObject:
   - component: {fileID: 23980694786993290}
   - component: {fileID: 102803268360092142}
   - component: {fileID: 114120548303386866}
+  - component: {fileID: 114269840984441404}
   m_Layer: 0
   m_Name: NumberDisplay
   m_TagString: Untagged
@@ -6652,7 +6653,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1772467531892464}
-  m_Text: 752389572412
+  m_Text: 888888888888
   m_OffsetZ: 0
   m_CharacterSize: 0.00026
   m_LineSpacing: 1
@@ -7107,6 +7108,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - Standard
+--- !u!114 &114269840984441404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772467531892464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b682ebe2e3da2141a3fa5d23f7b2a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114281142525955034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7324,7 +7336,7 @@ MonoBehaviour:
   - {fileID: 114545504638362438}
   - {fileID: 114552824772782566}
   - {fileID: 114882611354678022}
-  _digitDisplay: {fileID: 0}
+  _digitDisplay: {fileID: 114269840984441404}
 --- !u!114 &114399105502489032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8093,8 +8105,8 @@ MonoBehaviour:
   m_Script: {fileID: -119419473, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleType: Module
-  ModuleDisplayName: Module
+  ModuleType: TechnicalKeypad
+  ModuleDisplayName: Technical Keypad
   RequiresTimerVisibility: 0
 --- !u!114 &114882611354678022
 MonoBehaviour:

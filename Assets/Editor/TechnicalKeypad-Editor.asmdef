@@ -1,7 +1,7 @@
 {
-  "name": "jammod-Editor",
+  "name": "TechnicalKeypad-Editor",
   "references": [
-    "jammod"
+    "TechnicalKeypad"
   ],
   "includePlatforms": [
     "Editor"

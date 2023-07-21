@@ -2,32 +2,33 @@
 using KModkit;
 using UnityEngine;
 
-public partial class ModuleModule : MonoBehaviour {
+public partial class TechnicalKeypadModule : MonoBehaviour {
 
     [SerializeField] KeypadButton[] _buttons;
     [SerializeField] FlickerDisplay _digitDisplay;
 
-    private KMBombInfo _bombinfo;
+    private KMBombInfo _bombInfo;
     private KMAudio _audio;
     private KMBombModule _module;
 
-    private static int _moduleCount;
+    private static int s_moduleCount;
     private int _moduleId;
     private bool _isSolved;
 
     private KeypadInfo _keypadInfo;
 
+#pragma warning disable IDE0051
     private void Awake() {
-        _moduleId = _moduleCount++;
+        _moduleId = s_moduleCount++;
 
-        _bombinfo = GetComponent<KMBombInfo>();
+        _bombInfo = GetComponent<KMBombInfo>();
         _audio = GetComponent<KMAudio>();
         _module = GetComponent<KMBombModule>();
 
         // ! Remove if not used.
         _module.OnActivate += Activate;
-        _bombinfo.OnBombExploded += OnBombExploded;
-        _bombinfo.OnBombSolved += OnBombSolved;
+        _bombInfo.OnBombExploded += OnBombExploded;
+        _bombInfo.OnBombSolved += OnBombSolved;
     }
 
     private void Start() {
@@ -37,17 +38,18 @@ public partial class ModuleModule : MonoBehaviour {
 
         for (int pos = 0; pos < 9; pos++)
             _buttons[pos].Colour = _keypadInfo.Colours[pos];
+
+        Log($"Intersection points are {_keypadInfo.IntersectionPositions.Join(", ")}");
     }
+#pragma warning restore IDE0051
 
     private void Activate() { }
 
-    // * These are quite self-explanatory.
     private void OnBombExploded() { }
     private void OnBombSolved() { }
 
     public void Log(string message) {
         Debug.Log($"[Module #{_moduleId}] {message}");
-        throw new System.NotImplementedException("Change the logging tag to match the module name.");
     }
 
     public void Strike(string message) {

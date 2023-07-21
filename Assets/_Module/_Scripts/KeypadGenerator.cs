@@ -8,15 +8,15 @@ public static class KeypadGenerator {
     private static readonly int[][] s_digitArrangement = new int[12][] {
         new int[] { 1, 1, 0 },
         new int[] { 1, 2, 0 },
-        new int[] { 0, 0, 0 },
-        new int[] { 0, 1, 0 },
-        new int[] { 0, 2, 0 },
+        new int[] { 0, 0, 1 },
+        new int[] { 0, 1, 1 },
+        new int[] { 0, 2, 1 },
         new int[] { 1, 2, 1 },
         new int[] { 1, 1, 1 },
         new int[] { 1, 0, 1 },
-        new int[] { 0, 2, 1 },
-        new int[] { 0, 1, 1 },
-        new int[] { 0, 0, 1 },
+        new int[] { 0, 2, 0 },
+        new int[] { 0, 1, 0 },
+        new int[] { 0, 0, 0 },
         new int[] { 1, 0, 0 },
     };
     private static KeyColour[] s_allColours = new KeyColour[] {
