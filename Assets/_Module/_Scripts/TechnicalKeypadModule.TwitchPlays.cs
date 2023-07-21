@@ -4,8 +4,8 @@ using UnityEngine;
 
 #pragma warning disable 414, IDE0051, IDE1006
 
-partial class TechnicalKeypadModule {
-
+partial class TechnicalKeypadModule
+{
     private readonly string TwitchHelpMessage = @"Use '!{0} breh' to do things | '!{0} breh2' to do other things; extra information here.";
     // * TP Documentation: https://github.com/samfundev/KtaneTwitchPlays/wiki/External-Mod-Module-Support
     // ! Remove if not used. For more niche things like TwitchManualCode and ZenModeActive, look at tp docs ^^

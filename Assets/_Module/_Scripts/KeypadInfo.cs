@@ -1,7 +1,7 @@
 using System.Linq;
 
-public class KeypadInfo {
-
+public class KeypadInfo
+{
     private KeyColour[] _colours;
     private int[] _intersectionPositons;
 

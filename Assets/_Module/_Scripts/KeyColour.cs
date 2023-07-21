@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class KeyColour {
-
+public class KeyColour
+{
 #pragma warning disable IDE1006
     public static readonly KeyColour Red = new KeyColour("Red", 109, 0, 0);
     public static readonly KeyColour Orange = new KeyColour("Orange", 118, 70, 10);

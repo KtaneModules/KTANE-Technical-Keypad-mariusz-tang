@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Rnd = UnityEngine.Random;
 
-public static class KeypadGenerator {
-
+public static class KeypadGenerator
+{
     private static readonly int[][] s_digitArrangement = new int[12][] {
         new int[] { 1, 1, 0 },
         new int[] { 1, 2, 0 },

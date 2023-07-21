@@ -2,8 +2,8 @@
 using KModkit;
 using UnityEngine;
 
-public partial class TechnicalKeypadModule : MonoBehaviour {
-
+public partial class TechnicalKeypadModule : MonoBehaviour
+{
     [SerializeField] KeypadButton[] _buttons;
     [SerializeField] FlickerDisplay _digitDisplay;
 

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(KMSelectable), typeof(Animator))]
-public class Button : MonoBehaviour {
-
+public class Button : MonoBehaviour
+{
     [SerializeField] private string _buttonPressSound;
     [SerializeField] private string _buttonReleaseSound;
 
@@ -14,7 +14,7 @@ public class Button : MonoBehaviour {
     protected virtual void Awake() {
         _audio = GetComponentInParent<KMAudio>();
         _animator = GetComponent<Animator>();
-        
+
         Selectable = GetComponent<KMSelectable>();
         Selectable.OnInteract += () => {
             _animator.SetBool("IsPressed", true);
@@ -26,4 +26,8 @@ public class Button : MonoBehaviour {
             _audio.PlaySoundAtTransform(_buttonReleaseSound, transform);
         };
     }
+
+    public void Enable() => SetState(true);
+    public void Disable() => SetState(false);
+    public void SetState(bool shouldBeEnabled) => Selectable.enabled = shouldBeEnabled;
 }
