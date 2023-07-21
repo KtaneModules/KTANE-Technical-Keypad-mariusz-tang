@@ -1,30 +1,14 @@
 fileFormatVersion: 2
-guid: 78f7f0c2ecbad1042bbb23c2a703b254
+guid: a719bfd7de317264da23438aaca8deee
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Component_PuzzleBackground
-    100002: //RootNode
-    100004: Keypad Holder
-    100006: Submit Button Holder
-    400000: Component_PuzzleBackground
-    400002: //RootNode
-    400004: Keypad Holder
-    400006: Submit Button Holder
-    2100000: Component_PuzzleBack_mat
-    2100002: Material.001
-    2100004: No Name
-    2300000: Component_PuzzleBackground
-    2300002: Keypad Holder
-    2300004: Submit Button Holder
-    2300006: //RootNode
-    3300000: Component_PuzzleBackground
-    3300002: Keypad Holder
-    3300004: Submit Button Holder
-    3300006: //RootNode
-    4300000: Component_PuzzleBackground
-    4300002: Keypad Holder
-    4300004: Submit Button Holder
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Component_PuzzleBack_mat.010
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Spare Button
   externalObjects: {}
   materials:
     importMaterials: 1

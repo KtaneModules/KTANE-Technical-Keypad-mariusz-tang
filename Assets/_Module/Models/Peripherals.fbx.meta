@@ -1,0 +1,456 @@
+fileFormatVersion: 2
+guid: 433e198019c6f634a92036afec999d34
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Bulb 1
+    100002: Bulb 2
+    100004: Bulb 3
+    100006: Bulb Backing
+    100008: Component_PuzzleBackground
+    100010: //RootNode
+    100012: Keypad Holder
+    100014: Submit Button Holder
+    100016: Wire 1
+    100018: Wire 2
+    100020: Wire 3
+    100022: Button A1
+    100024: Button A2
+    100026: Button A3
+    100028: Button B1
+    100030: Button B2
+    100032: Button B3
+    100034: Button C1
+    100036: Button C2
+    100038: Button C3
+    100040: Submit Button Holder.001
+    100042: Submit Button
+    100044: Submit Button Holder.002
+    100046: Hatch Bottom
+    100048: Hatch Top
+    100050: Light Spinner
+    100052: Pole
+    100054: Status Light Cover
+    100056: Led 1
+    100058: Led 2
+    100060: Led 3
+    100062: Wire 10
+    100064: Wire 11
+    100066: Wire 12
+    100068: Wire 13
+    100070: Wire 14
+    100072: Wire 15
+    100074: Wire 16
+    100076: Wire 17
+    100078: Wire 18
+    100080: Wire 19
+    100082: Wire 20
+    100084: Wire 21
+    100086: Wire 22
+    100088: Wire 23
+    100090: Wire 24
+    100092: Wire 25
+    100094: Wire 26
+    100096: Wire 27
+    100098: Wire 28
+    100100: Wire 29
+    100102: Wire 30
+    100104: Wire 31
+    100106: Wire 32
+    100108: Wire 33
+    100110: Wire 34
+    100112: Wire 35
+    100114: Wire 36
+    100116: Wire 37
+    100118: Wire 38
+    100120: Wire 4
+    100122: Wire 5
+    100124: Wire 6
+    100126: Wire 7
+    100128: Wire 8
+    100130: Wire 9
+    100132: Wire Component 1
+    100134: Wire Component 2
+    100136: Wire Component 3.1
+    100138: Wire Component 3.2
+    100140: Wire Component 4
+    100142: Spare Button
+    400000: Bulb 1
+    400002: Bulb 2
+    400004: Bulb 3
+    400006: Bulb Backing
+    400008: Component_PuzzleBackground
+    400010: //RootNode
+    400012: Keypad Holder
+    400014: Submit Button Holder
+    400016: Wire 1
+    400018: Wire 2
+    400020: Wire 3
+    400022: Button A1
+    400024: Button A2
+    400026: Button A3
+    400028: Button B1
+    400030: Button B2
+    400032: Button B3
+    400034: Button C1
+    400036: Button C2
+    400038: Button C3
+    400040: Submit Button Holder.001
+    400042: Submit Button
+    400044: Submit Button Holder.002
+    400046: Hatch Bottom
+    400048: Hatch Top
+    400050: Light Spinner
+    400052: Pole
+    400054: Status Light Cover
+    400056: Led 1
+    400058: Led 2
+    400060: Led 3
+    400062: Wire 10
+    400064: Wire 11
+    400066: Wire 12
+    400068: Wire 13
+    400070: Wire 14
+    400072: Wire 15
+    400074: Wire 16
+    400076: Wire 17
+    400078: Wire 18
+    400080: Wire 19
+    400082: Wire 20
+    400084: Wire 21
+    400086: Wire 22
+    400088: Wire 23
+    400090: Wire 24
+    400092: Wire 25
+    400094: Wire 26
+    400096: Wire 27
+    400098: Wire 28
+    400100: Wire 29
+    400102: Wire 30
+    400104: Wire 31
+    400106: Wire 32
+    400108: Wire 33
+    400110: Wire 34
+    400112: Wire 35
+    400114: Wire 36
+    400116: Wire 37
+    400118: Wire 38
+    400120: Wire 4
+    400122: Wire 5
+    400124: Wire 6
+    400126: Wire 7
+    400128: Wire 8
+    400130: Wire 9
+    400132: Wire Component 1
+    400134: Wire Component 2
+    400136: Wire Component 3.1
+    400138: Wire Component 3.2
+    400140: Wire Component 4
+    400142: Spare Button
+    2100000: No Name
+    2100002: Component_PuzzleBack_mat
+    2100004: Material.001
+    2100006: Component_PuzzleBack_mat.009
+    2100008: Component_PuzzleBack_mat.003
+    2100010: Component_PuzzleBack_mat.006
+    2100012: Component_PuzzleBack_mat.004
+    2100014: Component_PuzzleBack_mat.005
+    2100016: Component_PuzzleBack_mat.002
+    2100018: Component_PuzzleBack_mat.007
+    2100020: Component_PuzzleBack_mat.008
+    2100022: Material.010
+    2100024: Material
+    2100026: Component_PuzzleBack_mat.010
+    2300000: Bulb 1
+    2300002: Bulb 2
+    2300004: Bulb 3
+    2300006: Bulb Backing
+    2300008: Component_PuzzleBackground
+    2300010: Keypad Holder
+    2300012: Submit Button Holder
+    2300014: Wire 1
+    2300016: Wire 2
+    2300018: Wire 3
+    2300020: Button A1
+    2300022: Button A2
+    2300024: Button A3
+    2300026: Button B1
+    2300028: Button B2
+    2300030: Button B3
+    2300032: Button C1
+    2300034: Button C2
+    2300036: Button C3
+    2300038: Submit Button Holder.001
+    2300040: Submit Button
+    2300042: Submit Button Holder.002
+    2300044: Hatch Bottom
+    2300046: Hatch Top
+    2300048: Light Spinner
+    2300050: Pole
+    2300052: Status Light Cover
+    2300054: Led 1
+    2300056: Led 2
+    2300058: Led 3
+    2300060: Wire 10
+    2300062: Wire 11
+    2300064: Wire 12
+    2300066: Wire 13
+    2300068: Wire 14
+    2300070: Wire 15
+    2300072: Wire 16
+    2300074: Wire 17
+    2300076: Wire 18
+    2300078: Wire 19
+    2300080: Wire 20
+    2300082: Wire 21
+    2300084: Wire 22
+    2300086: Wire 23
+    2300088: Wire 24
+    2300090: Wire 25
+    2300092: Wire 26
+    2300094: Wire 27
+    2300096: Wire 28
+    2300098: Wire 29
+    2300100: Wire 30
+    2300102: Wire 31
+    2300104: Wire 32
+    2300106: Wire 33
+    2300108: Wire 34
+    2300110: Wire 35
+    2300112: Wire 36
+    2300114: Wire 37
+    2300116: Wire 38
+    2300118: Wire 4
+    2300120: Wire 5
+    2300122: Wire 6
+    2300124: Wire 7
+    2300126: Wire 8
+    2300128: Wire 9
+    2300130: Wire Component 1
+    2300132: Wire Component 2
+    2300134: Wire Component 3.1
+    2300136: Wire Component 3.2
+    2300138: Wire Component 4
+    2300140: Spare Button
+    3300000: Bulb 1
+    3300002: Bulb 2
+    3300004: Bulb 3
+    3300006: Bulb Backing
+    3300008: Component_PuzzleBackground
+    3300010: Keypad Holder
+    3300012: Submit Button Holder
+    3300014: Wire 1
+    3300016: Wire 2
+    3300018: Wire 3
+    3300020: Button A1
+    3300022: Button A2
+    3300024: Button A3
+    3300026: Button B1
+    3300028: Button B2
+    3300030: Button B3
+    3300032: Button C1
+    3300034: Button C2
+    3300036: Button C3
+    3300038: Submit Button Holder.001
+    3300040: Submit Button
+    3300042: Submit Button Holder.002
+    3300044: Hatch Bottom
+    3300046: Hatch Top
+    3300048: Light Spinner
+    3300050: Pole
+    3300052: Status Light Cover
+    3300054: Led 1
+    3300056: Led 2
+    3300058: Led 3
+    3300060: Wire 10
+    3300062: Wire 11
+    3300064: Wire 12
+    3300066: Wire 13
+    3300068: Wire 14
+    3300070: Wire 15
+    3300072: Wire 16
+    3300074: Wire 17
+    3300076: Wire 18
+    3300078: Wire 19
+    3300080: Wire 20
+    3300082: Wire 21
+    3300084: Wire 22
+    3300086: Wire 23
+    3300088: Wire 24
+    3300090: Wire 25
+    3300092: Wire 26
+    3300094: Wire 27
+    3300096: Wire 28
+    3300098: Wire 29
+    3300100: Wire 30
+    3300102: Wire 31
+    3300104: Wire 32
+    3300106: Wire 33
+    3300108: Wire 34
+    3300110: Wire 35
+    3300112: Wire 36
+    3300114: Wire 37
+    3300116: Wire 38
+    3300118: Wire 4
+    3300120: Wire 5
+    3300122: Wire 6
+    3300124: Wire 7
+    3300126: Wire 8
+    3300128: Wire 9
+    3300130: Wire Component 1
+    3300132: Wire Component 2
+    3300134: Wire Component 3.1
+    3300136: Wire Component 3.2
+    3300138: Wire Component 4
+    3300140: Spare Button
+    4300000: Bulb 1
+    4300002: Bulb 2
+    4300004: Bulb 3
+    4300006: Bulb Backing
+    4300008: Wire 1
+    4300010: Wire 2
+    4300012: Wire 3
+    4300014: Component_PuzzleBackground
+    4300016: Keypad Holder
+    4300018: Submit Button Holder
+    4300020: Button A1
+    4300022: Button A2
+    4300024: Button A3
+    4300026: Button B1
+    4300028: Button B2
+    4300030: Button B3
+    4300032: Button C1
+    4300034: Button C2
+    4300036: Button C3
+    4300038: Submit Button Holder.001
+    4300040: Submit Button
+    4300042: Submit Button Holder.002
+    4300044: Hatch Bottom
+    4300046: Hatch Top
+    4300048: Status Light Cover
+    4300050: Light Spinner
+    4300052: Pole
+    4300054: Led 2
+    4300056: Led 1
+    4300058: Led 3
+    4300060: Wire 4
+    4300062: Wire 5
+    4300064: Wire 6
+    4300066: Wire 7
+    4300068: Wire 8
+    4300070: Wire Component 1
+    4300072: Wire Component 2
+    4300074: Wire 9
+    4300076: Wire 10
+    4300078: Wire 11
+    4300080: Wire 12
+    4300082: Wire 13
+    4300084: Wire 14
+    4300086: Wire 15
+    4300088: Wire 16
+    4300090: Wire 17
+    4300092: Wire 18
+    4300094: Wire 19
+    4300096: Wire 20
+    4300098: Wire 21
+    4300100: Wire 22
+    4300102: Wire 23
+    4300104: Wire 24
+    4300106: Wire 25
+    4300108: Wire 26
+    4300110: Wire 27
+    4300112: Wire 28
+    4300114: Wire 29
+    4300116: Wire 30
+    4300118: Wire 31
+    4300120: Wire 32
+    4300122: Wire 33
+    4300124: Wire 34
+    4300126: Wire 35
+    4300128: Wire 36
+    4300130: Wire 37
+    4300132: Wire 38
+    4300134: Wire Component 3.1
+    4300136: Wire Component 3.2
+    4300138: Wire Component 4
+    4300140: Spare Button
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
