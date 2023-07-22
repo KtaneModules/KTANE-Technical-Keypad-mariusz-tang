@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ public static class KeypadGenerator
         new int[] { 0, 0, 0 },
         new int[] { 1, 0, 0 },
     };
-    private static KeyColour[] s_allColours = new KeyColour[] {
+    private static readonly KeyColour[] s_allColours = new KeyColour[] {
         KeyColour.Red,
         KeyColour.Orange,
         KeyColour.Yellow,
@@ -34,13 +35,19 @@ public static class KeypadGenerator
     public static KeypadInfo GenerateKeypad() {
         int[] intersectionPositions;
         string digits = GetDigits(out intersectionPositions);
-        return new KeypadInfo(digits, GetRandomKeyColours(), intersectionPositions);
+
+        // Guarantee that at least three rules need to be followed.
+        bool green = intersectionPositions.Length >= 3 && (intersectionPositions.Length > 6 || Rnd.Range(0, 2) == 1);
+        bool yellow = Rnd.Range(0, 2) == 1;
+        bool red = Rnd.Range(0, 2) == 1;
+        
+        return new KeypadInfo(digits, GetRandomKeyColours(), intersectionPositions, red, yellow, green);
     }
 
     private static KeyColour[] GetRandomKeyColours() => s_allColours.ToArray().Shuffle();
 
     private static string GetDigits(out int[] intersectionPositions) {
-        var pairDigits = Enumerable.Range(0, 10).ToArray().Shuffle().Take(4).ToArray();
+        var pairDigits = Enumerable.Range(0, 10).ToArray().Shuffle().Take(Rnd.Range(2, 5)).ToArray();
         var rowPairs = Enumerable.Range(0, 3).Select(_ => new List<int>()).ToArray();
         var colPairs = Enumerable.Range(0, 3).Select(_ => new List<int>()).ToArray();
         var positions = Enumerable.Range(0, 9).ToList().Shuffle();
