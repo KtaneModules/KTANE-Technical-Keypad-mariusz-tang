@@ -4,10 +4,11 @@ using UnityEngine;
 
 public partial class TechnicalKeypadModule : MonoBehaviour
 {
-    [SerializeField] Display _digitDisplay;
-    [SerializeField] KeypadButton[] _buttons;
-    [SerializeField] Led[] _leds;
-    [SerializeField] ButtonHatch _submitHatch;
+    [SerializeField] private Display _digitDisplay;
+    [SerializeField] private KeypadButton[] _buttons;
+    [SerializeField] private Led[] _leds;
+    [SerializeField] private ButtonHatch _submitHatch;
+    [SerializeField] private ProgressBar _progressBar;
 
     private KMBombInfo _bombInfo;
     private KMAudio _audio;
@@ -65,10 +66,11 @@ public partial class TechnicalKeypadModule : MonoBehaviour
                 l.Enable();
         };
         _buttons[3].Disable();
-        _buttons[4].Selectable.OnInteract += () => { _digitDisplay.Disable(); return false; };
-        _buttons[4].Selectable.OnInteractEnded += () => { _digitDisplay.Enable(); };
         _buttons[5].Selectable.OnInteract += () => { _submitHatch.Open(); return false; };
         _buttons[6].Selectable.OnInteract += () => { _submitHatch.Close(); return false; };
+        _buttons[7].Selectable.OnInteract += () => { _progressBar.FillLevel += 0.1f; return false; };
+        _buttons[4].Selectable.OnInteract += () => { _progressBar.FillRate += 0.1f; return false; };
+        _buttons[8].Selectable.OnInteract += () => { _progressBar.FillRate -= 0.1f; return false; };
 
         Log($"Intersection points are {_keypadInfo.IntersectionPositions.Join(", ")}");
     }
