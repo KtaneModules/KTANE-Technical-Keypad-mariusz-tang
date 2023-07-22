@@ -16,16 +16,18 @@ public class Button : MonoBehaviour
         _audio = GetComponentInParent<KMAudio>();
         _animator = GetComponent<Animator>();
         _highlight = GetComponentInChildren<KMHighlightable>();
-
+        
         Selectable = GetComponent<KMSelectable>();
         Selectable.OnInteract += () => {
             _animator.SetBool("IsPressed", true);
-            _audio.PlaySoundAtTransform(_buttonPressSound, transform);
+            if (!string.IsNullOrEmpty(_buttonPressSound))
+                _audio.PlaySoundAtTransform(_buttonPressSound, transform);
             return false;
         };
         Selectable.OnInteractEnded += () => {
             _animator.SetBool("IsPressed", false);
-            _audio.PlaySoundAtTransform(_buttonReleaseSound, transform);
+            if (!string.IsNullOrEmpty(_buttonReleaseSound))
+                _audio.PlaySoundAtTransform(_buttonReleaseSound, transform);
         };
     }
 

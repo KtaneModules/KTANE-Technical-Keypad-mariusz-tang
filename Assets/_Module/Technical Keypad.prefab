@@ -6941,7 +6941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65e00413873e9648895fcb6cc64a1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
+  _buttonPressSound: SubmitPunch
   _buttonReleaseSound: 
 --- !u!114 &114132374815629100
 MonoBehaviour:
@@ -7545,8 +7545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114531226182582152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7643,8 +7643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114552824772782566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7656,8 +7656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114557697863186228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7890,8 +7890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114658957284699302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7903,8 +7903,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114666729222469520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8042,8 +8042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114764892433888162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8120,8 +8120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114852070900954006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8185,8 +8185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114896861240719156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8281,8 +8281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c2e4edd259e943a4acc6ea62e97c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPressSound: 
-  _buttonReleaseSound: 
+  _buttonPressSound: KeyDown
+  _buttonReleaseSound: KeyUp
 --- !u!114 &114951524298771166
 MonoBehaviour:
   m_ObjectHideFlags: 1
