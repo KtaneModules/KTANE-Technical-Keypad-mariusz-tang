@@ -23,6 +23,7 @@ public class Display : MonoBehaviour
 #pragma warning disable IDE0051
     private void Awake() {
         _mesh = GetComponent<TextMesh>();
+        _mesh.color = Color.black;
     }
 #pragma warning restore IDE0051
 

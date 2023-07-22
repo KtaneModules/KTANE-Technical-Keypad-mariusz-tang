@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ButtonHatch : MonoBehaviour
 {
-    private Animator _animator;
-    private Button _button;
+    [SerializeField] private Button _button;
 
+    private Animator _animator;
+    
     public KMSelectable Selectable { get; private set; }
 
 #pragma warning disable IDE0051
     private void Awake() {
         _animator = GetComponent<Animator>();
-        _button = GetComponentInChildren<Button>();
         Selectable = _button.GetComponent<KMSelectable>();
     }
 
