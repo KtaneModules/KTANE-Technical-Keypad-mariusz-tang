@@ -6,10 +6,15 @@ public class ProgressBar : MonoBehaviour
 {
     private const float s_emptyPosition = 0.8f;
     private const float s_fullPosition = 0;
+    private readonly Color _neutralColour = new Color(113 / 255f, 113 / 255f, 113 / 255f, 1);
+    private readonly Color _warningColour = new Color(131 / 255f, 0, 0, 1);
 
-    [SerializeField] private Transform _bar;
+    [SerializeField] private SpriteRenderer _mainBarRenderer;
+    [SerializeField] private Transform _successBar;
+    private Transform _mainBar;
 
     private float _fillLevel;
+    private float _displayFillLevel;
     private Coroutine _fillAnimation;
 
     public float FillRate { get; set; }
@@ -20,8 +25,10 @@ public class ProgressBar : MonoBehaviour
 
 #pragma warning disable IDE0051
     private void Awake() {
+        _mainBar = _mainBarRenderer.transform;
         _fillAnimation = StartCoroutine(DoFillAnimation());
-        _bar.localPosition = Vector3.up * s_emptyPosition;
+        _mainBar.localPosition = Vector3.up * s_emptyPosition;
+        _successBar.localPosition = Vector3.up * s_emptyPosition;
     }
 #pragma warning restore IDE0051
 
@@ -30,8 +37,11 @@ public class ProgressBar : MonoBehaviour
     private IEnumerator DoFillAnimation() {
         while (true) {
             FillLevel += FillRate * Time.deltaTime;
-            var targetPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, _fillLevel);
-            _bar.localPosition = Vector3.Lerp(_bar.localPosition, targetPosition, 100 * Time.deltaTime);
+            _displayFillLevel = Mathf.Lerp(_displayFillLevel, FillLevel, 5 * Time.deltaTime);
+
+            _mainBarRenderer.color = Color.Lerp(_neutralColour, _warningColour, (0.35f - _displayFillLevel) / 0.35f);
+            _mainBar.localPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, _displayFillLevel / 0.8f);
+            _successBar.localPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, (_displayFillLevel - 0.8f) / 0.2f);
             yield return null;
         }
     }
