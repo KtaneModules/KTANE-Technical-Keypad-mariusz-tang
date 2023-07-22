@@ -14,12 +14,11 @@ public class StatusLight : MonoBehaviour
     private bool _isActive;
     private bool _stayActive;
 
+    private Coroutine _strikeFlash;
     private Coroutine _lightStateTransition;
 
 #pragma warning disable IDE0051
-    private void Awake() {
-        StartCoroutine(Spin());
-    }
+    private void Awake() => StartCoroutine(Spin());
 
     private void Start() {
         var module = GetComponentInParent<TechnicalKeypadModule>();
@@ -32,7 +31,7 @@ public class StatusLight : MonoBehaviour
         modSelectable.OnDefocus += () => _isActive = false;
 
         var moduleModComp = module.GetComponent<KMBombModule>();
-        moduleModComp.OnStrike += () => { StartCoroutine(DoStrikeFlash()); return false; };
+        moduleModComp.OnStrike += () => { StopStrikeFlash(); _strikeFlash = StartCoroutine(DoStrikeFlash()); return false; };
         moduleModComp.OnPass += () => { EnterSolveState(); return false; };
     }
 #pragma warning restore IDE0051 
@@ -79,6 +78,11 @@ public class StatusLight : MonoBehaviour
         _cover.material.color = finalColour;
     }
 
+    private void StopStrikeFlash() {
+        if (_strikeFlash != null)
+            StopCoroutine(_strikeFlash);
+    }
+
     private IEnumerator DoStrikeFlash() {
         SetLightColour(Color.red);
         SetLightState(true);
@@ -87,6 +91,7 @@ public class StatusLight : MonoBehaviour
     }
 
     private void EnterSolveState() {
+        StopStrikeFlash();
         SetLightColour(Color.green);
         SetLightState(true);
         _stayActive = true;
