@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using KModkit;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private bool _isColourblindMode;
 
     private KeypadInfo _keypadInfo;
+    private KeypadSolver _solver;
 
 #pragma warning disable IDE0051
     private void Awake() {
@@ -40,23 +42,29 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _bombInfo.OnBombExploded += OnBombExploded;
         _bombInfo.OnBombSolved += OnBombSolved;
 
+        // ! Move this to after we get _keypadInfo.
         var modSelectable = GetComponent<KMSelectable>();
         modSelectable.OnFocus += () => {
             if (!_hasActivated) {
-                foreach (Led l in _leds)
-                    l.Enable();
+                bool[] ledStates = _keypadInfo.LedStates;
+                for (int pos = 0; pos < 3; pos++) {
+                    if (ledStates[pos])
+                        _leds[pos].Enable();
+                }
                 _digitDisplay.Enable();
                 _hasActivated = true;
+                DoInitialLogging();
+                _solver = new KeypadSolver(_keypadInfo, _bombInfo, Log);
             }
         };
 
         OnSetColourblindMode += (value) => _isColourblindMode = value;
-        _statusLightSelectable.OnInteract += () => { OnSetColourblindMode.Invoke(!_isColourblindMode); return false; };
+        _statusLightSelectable.OnInteract += () => { OnSetColourblindMode(!_isColourblindMode); return false; };
     }
 
     private void Start() {
-        // TODO: Get rid of the testing part and order this in a sensible manner.
-        OnSetColourblindMode?.Invoke(GetComponent<KMColorblindMode>().ColorblindModeActive);
+        // TODO: Order this in a sensible manner.
+        OnSetColourblindMode(GetComponent<KMColorblindMode>().ColorblindModeActive);
         _keypadInfo = KeypadGenerator.GenerateKeypad();
 
         _digitDisplay.Text = _keypadInfo.Digits;
@@ -64,26 +72,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         for (int pos = 0; pos < 9; pos++)
             _buttons[pos].Colour = _keypadInfo.Colours[pos];
 
-        // ! Testing
-        _buttons[0].Selectable.OnInteract += () => { Strike("bruh"); return false; };
-        _buttons[1].Selectable.OnInteract += () => { Solve(); return false; };
-        _buttons[2].Selectable.OnInteract += () => {
-            foreach (Led l in _leds)
-                l.Disable();
-            return false;
-        };
-        _buttons[2].Selectable.OnInteractEnded += () => {
-            foreach (Led l in _leds)
-                l.Enable();
-        };
-        _buttons[3].Disable();
-        _buttons[5].Selectable.OnInteract += () => { _submitHatch.Open(); return false; };
-        _buttons[6].Selectable.OnInteract += () => { _submitHatch.Close(); return false; };
-        _buttons[7].Selectable.OnInteract += () => { _progressBar.FillLevel += 0.1f; return false; };
-        _buttons[4].Selectable.OnInteract += () => { _progressBar.FillRate += 0.1f; return false; };
-        _buttons[8].Selectable.OnInteract += () => { _progressBar.FillRate -= 0.1f; return false; };
-
-        Log($"Intersection points are {_keypadInfo.IntersectionPositions.Join(", ")}");
+        Log("Focus the module to begin.");
     }
 #pragma warning restore IDE0051
 
@@ -91,6 +80,12 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     private void OnBombExploded() { }
     private void OnBombSolved() { }
+
+    private void DoInitialLogging() {
+        Log($"The displayed digits are {_keypadInfo.Digits}");
+        Log($"The colours are, in reading order, {_keypadInfo.Colours.Join(", ").ToLower()}.");
+        Log($"The leds, from top to bottom, are {_keypadInfo.LedStates.Select(s => s ? "on" : "off").Join(", ")}.");
+    }
 
     public void Log(string message) {
         Debug.Log($"[Module #{_moduleId}] {message}");

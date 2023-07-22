@@ -35,11 +35,10 @@ public static class KeypadGenerator
     public static KeypadInfo GenerateKeypad() {
         int[] intersectionPositions;
         string digits = GetDigits(out intersectionPositions);
-
-        // Guarantee that at least three rules need to be followed.
-        bool green = intersectionPositions.Length >= 3 && (intersectionPositions.Length > 6 || Rnd.Range(0, 2) == 1);
+        bool green = Rnd.Range(0, 2) == 1;
         bool yellow = Rnd.Range(0, 2) == 1;
-        bool red = Rnd.Range(0, 2) == 1;
+        // Guarantee that at least three rules need to be followed.
+        bool red = intersectionPositions.Length >= 3 && (intersectionPositions.Length > 6 || Rnd.Range(0, 2) == 1);
         
         return new KeypadInfo(digits, GetRandomKeyColours(), intersectionPositions, red, yellow, green);
     }
