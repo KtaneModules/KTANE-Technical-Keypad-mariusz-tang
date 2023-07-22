@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class KeypadButton : Button
 {
+    [SerializeField] private MeshRenderer _buttonRenderer;
+    [SerializeField] private ColourblindText _colourblindText;
+
     private KeyColour _colour;
     private Material _material;
 
@@ -12,11 +15,12 @@ public class KeypadButton : Button
         set {
             _colour = value;
             _material.color = _colour.Colour;
+            _colourblindText.Value = _colour.ColourblindText;
         }
     }
 
     protected override void Awake() {
         base.Awake();
-        _material = GetComponentInChildren<MeshRenderer>().material;
+        _material = _buttonRenderer.material;
     }
 }

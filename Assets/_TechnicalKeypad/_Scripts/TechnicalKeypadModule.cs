@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using KModkit;
 using UnityEngine;
 
+[RequireComponent(typeof(KMBombModule), typeof(KMColorblindMode), typeof(KMSelectable))]
 public partial class TechnicalKeypadModule : MonoBehaviour
 {
     [SerializeField] private Display _digitDisplay;
@@ -9,6 +11,9 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     [SerializeField] private Led[] _leds;
     [SerializeField] private ButtonHatch _submitHatch;
     [SerializeField] private ProgressBar _progressBar;
+    [SerializeField] private KMSelectable _statusLightSelectable;
+
+    public event Action<bool> OnSetColourblindMode;
 
     private KMBombInfo _bombInfo;
     private KMAudio _audio;
@@ -18,6 +23,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private int _moduleId;
 
     private bool _hasActivated;
+    private bool _isColourblindMode;
 
     private KeypadInfo _keypadInfo;
 
@@ -43,9 +49,14 @@ public partial class TechnicalKeypadModule : MonoBehaviour
                 _hasActivated = true;
             }
         };
+
+        OnSetColourblindMode += (value) => _isColourblindMode = value;
+        _statusLightSelectable.OnInteract += () => { OnSetColourblindMode.Invoke(!_isColourblindMode); return false; };
     }
 
     private void Start() {
+        // TODO: Get rid of the testing part and order this in a sensible manner.
+        OnSetColourblindMode?.Invoke(GetComponent<KMColorblindMode>().ColorblindModeActive);
         _keypadInfo = KeypadGenerator.GenerateKeypad();
 
         _digitDisplay.Text = _keypadInfo.Digits;
