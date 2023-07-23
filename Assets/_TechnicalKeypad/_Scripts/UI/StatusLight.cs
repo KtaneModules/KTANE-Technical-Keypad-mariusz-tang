@@ -24,7 +24,7 @@ public class StatusLight : MonoBehaviour
     private void Start() {
         var module = GetComponentInParent<TechnicalKeypadModule>();
 
-        float scale = module.transform.lossyScale.x * 0.02f;
+        float scale = module.transform.lossyScale.x * .02f;
         DoToLights(l => l.range = scale);
 
         var modSelectable = module.GetComponent<KMSelectable>();
@@ -91,11 +91,11 @@ public class StatusLight : MonoBehaviour
         var initialIntensity = _lights[0].intensity;
         var finalIntensity = shouldEnable ? 20 : 0;
         var initialColour = _cover.material.color;
-        var finalColour = shouldEnable ? _lights[0].color * 0.5f : Color.black;
+        var finalColour = shouldEnable ? _lights[0].color * .5f : Color.black;
         var elapsedTime = 0f;
 
-        while (elapsedTime < 0.3f) {
-            var progress = elapsedTime / 0.3f;
+        while (elapsedTime < .3f) {
+            var progress = elapsedTime / .3f;
             var newIntensity = Mathf.Lerp(initialIntensity, finalIntensity, progress);
             _cover.material.color = Color.Lerp(initialColour, finalColour, progress);
             DoToLights(l => l.intensity = newIntensity);

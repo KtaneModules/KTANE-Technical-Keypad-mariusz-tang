@@ -22,8 +22,8 @@ public class Led : MonoBehaviour
         var finalColour = shouldTurnOn ? _colour : Color.black;
         var elapsedTime = 0f;
 
-        while (elapsedTime < 0.3f) {
-            var progress = elapsedTime / 0.3f;
+        while (elapsedTime < .2f) {
+            var progress = elapsedTime / .2f;
             var newColour = Color.Lerp(initialColour, finalColour, progress);
             _cover.material.color = newColour;
             _ledInner.material.color = newColour;

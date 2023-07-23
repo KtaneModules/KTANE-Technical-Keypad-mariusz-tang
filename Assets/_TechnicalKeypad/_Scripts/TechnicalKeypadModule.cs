@@ -60,7 +60,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         }
 
         _submitHatch.Selectable.OnInteract += () => {
-            _progressBar.FillLevel += 0.03f;
+            _progressBar.FillLevel += .03f;
             _submitHatch.Selectable.AddInteractionPunch();
             return false;
         };
@@ -125,7 +125,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private void AdvanceAction() {
         Log("Rule passed.");
         _currentActionIndex++;
-        _progressBar.FillLevel = 0.5f * _currentActionIndex / _correctActions.Length;
+        _progressBar.FillLevel = .5f * _currentActionIndex / _correctActions.Length;
 
         if (_currentActionIndex >= _correctActions.Length) {
             EnterSubmitState();
@@ -144,7 +144,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _audio.PlaySoundAtTransform("Siren", transform);
         _statusLight.EnterSirenState();
         _submitHatch.Open();
-        _progressBar.FillRate = -0.1f;
+        _progressBar.FillRate = -.1f;
         StartCoroutine(TrackSirenState());
         Log("!! The siren went off! Spam the button to fill the bar!");
     }
@@ -152,7 +152,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private IEnumerator TrackSirenState() {
         float timeElapsed = 0f;
         int intTimeHeld = 0;
-        while (_progressBar.FillLevel > 0.01f && _progressBar.FillLevel < 0.99f) {
+        while (_progressBar.FillLevel > .01f && _progressBar.FillLevel < .99f) {
             yield return null;
             timeElapsed += Time.deltaTime;
             if (timeElapsed > intTimeHeld) {
@@ -163,7 +163,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
                 _leds[2].SetState(intTimeHeld % 2 == 0);
             }
         }
-        if (_progressBar.FillLevel <= 0.01f)
+        if (_progressBar.FillLevel <= .01f)
             Strike("You let the bar empty all the way!");
         else {
             _progressBar.FillRate = 0;
@@ -214,12 +214,35 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _module.HandlePass();
         _isSolved = true;
         Log("◯ Module solved.");
-
-        _audio.PlaySoundAtTransform("Solve", transform);
-        _leds[0].Enable();
-        _leds[1].Disable();
-        _leds[2].Disable();
         _digitDisplay.Disable();
         Array.ForEach(_buttons, b => b.Enable());
+        StartCoroutine(SolveAnimation());
+    }
+
+    private IEnumerator SolveAnimation() {
+        _audio.PlaySoundAtTransform("Solve", transform);
+        _leds[0].Disable();
+        _leds[1].Disable();
+        _leds[2].Disable();
+        yield return new WaitForSeconds(.3f);
+        _leds[0].Enable();
+        yield return new WaitForSeconds(.1f);
+        _leds[0].Disable();
+        _leds[1].Enable();
+        yield return new WaitForSeconds(.1f);
+        _leds[1].Disable();
+        _leds[2].Enable();
+        yield return new WaitForSeconds(.2f);
+        _leds[2].Disable();
+        _leds[0].Enable();
+        yield return new WaitForSeconds(.2f);
+        _leds[0].Disable();
+        _leds[1].Enable();
+        yield return new WaitForSeconds(.2f);
+        _leds[1].Disable();
+        _leds[2].Enable();
+        yield return new WaitForSeconds(.2f);
+        _leds[2].Disable();
+        _leds[0].Enable();
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ProgressBar : MonoBehaviour
 {
-    private const float s_emptyPosition = 0.8f;
+    private const float s_emptyPosition = .8f;
     private const float s_fullPosition = 0;
     private readonly Color _neutralColour = new Color(113 / 255f, 113 / 255f, 113 / 255f, 1);
     private readonly Color _warningColour = new Color(131 / 255f, 0, 0, 1);
@@ -36,9 +36,9 @@ public class ProgressBar : MonoBehaviour
             FillLevel += FillRate * Time.deltaTime;
             _displayFillLevel = Mathf.Lerp(_displayFillLevel, FillLevel, 5 * Time.deltaTime);
 
-            _mainBarRenderer.color = Color.Lerp(_neutralColour, _warningColour, (0.35f - _displayFillLevel) / 0.35f);
-            _mainBar.localPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, _displayFillLevel / 0.8f);
-            _successBar.localPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, (_displayFillLevel - 0.8f) / 0.2f);
+            _mainBarRenderer.color = Color.Lerp(_neutralColour, _warningColour, (.35f - _displayFillLevel) / .35f);
+            _mainBar.localPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, _displayFillLevel / .8f);
+            _successBar.localPosition = Vector3.up * Mathf.Lerp(s_emptyPosition, s_fullPosition, (_displayFillLevel - .8f) / .2f);
             yield return null;
         }
     }
