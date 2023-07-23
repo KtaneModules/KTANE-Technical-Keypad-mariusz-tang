@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class KeypadAction
 {
@@ -21,6 +19,6 @@ public class KeypadAction
 
     public static KeypadAction CreatePressAction(params int[] validButtons) => new KeypadAction(validButtons);
     public static KeypadAction CreatePressAction(IEnumerable<int> validButtons) => new KeypadAction(validButtons);
-
+    
     public static KeypadAction CreateHoldAction(int validButton, int holdTime) => new KeypadAction(validButton) { IsHoldAction = true, HoldTime = holdTime };
 }

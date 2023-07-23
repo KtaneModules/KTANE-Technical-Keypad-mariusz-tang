@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class StatusLight : MonoBehaviour
@@ -26,7 +24,7 @@ public class StatusLight : MonoBehaviour
     private void Start() {
         var module = GetComponentInParent<TechnicalKeypadModule>();
 
-        var scale = module.transform.lossyScale.x * 0.02f;
+        float scale = module.transform.lossyScale.x * 0.02f;
         DoToLights(l => l.range = scale);
 
         var modSelectable = module.GetComponent<KMSelectable>();
@@ -37,12 +35,7 @@ public class StatusLight : MonoBehaviour
         moduleModComp.OnStrike += () => { StopStrikeFlash(); _strikeFlash = StartCoroutine(DoStrikeFlash()); return false; };
         moduleModComp.OnPass += () => { EnterSolveState(); return false; };
     }
-#pragma warning restore IDE0051 
-
-    private void DoToLights(Action<Light> action) {
-        action(_lights[0]);
-        action(_lights[1]);
-    }
+#pragma warning restore IDE0051
 
     private IEnumerator Spin() {
         while (true) {
@@ -50,6 +43,38 @@ public class StatusLight : MonoBehaviour
             _spinRate = Mathf.Lerp(_spinRate, _isActive || _stayActive ? 1 : 0, Time.deltaTime);
             yield return null;
         }
+    }
+
+    private IEnumerator DoStrikeFlash() {
+        _stayActive = false;
+        SetLightColour(Color.red);
+        SetLightState(true);
+        yield return new WaitForSeconds(2f);
+        SetLightState(false);
+    }
+
+    public void EnterSirenState() {
+        StopStrikeFlash();
+        SetLightColour(Color.yellow);
+        SetLightState(true);
+        _stayActive = true;
+    }
+
+    private void EnterSolveState() {
+        StopStrikeFlash();
+        SetLightColour(Color.green);
+        SetLightState(true);
+        _stayActive = true;
+    }
+
+    private void StopStrikeFlash() {
+        if (_strikeFlash != null)
+            StopCoroutine(_strikeFlash);
+    }
+
+    private void DoToLights(Action<Light> action) {
+        action(_lights[0]);
+        action(_lights[1]);
     }
 
     private void SetLightColour(Color colour) {
@@ -79,32 +104,5 @@ public class StatusLight : MonoBehaviour
         }
         DoToLights(l => l.intensity = finalIntensity);
         _cover.material.color = finalColour;
-    }
-
-    private void StopStrikeFlash() {
-        if (_strikeFlash != null)
-            StopCoroutine(_strikeFlash);
-    }
-
-    private IEnumerator DoStrikeFlash() {
-        _stayActive = false;
-        SetLightColour(Color.red);
-        SetLightState(true);
-        yield return new WaitForSeconds(2f);
-        SetLightState(false);
-    }
-
-    public void EnterSirenState() {
-        StopStrikeFlash();
-        SetLightColour(Color.yellow);
-        SetLightState(true);
-        _stayActive = true;
-    }
-
-    private void EnterSolveState() {
-        StopStrikeFlash();
-        SetLightColour(Color.green);
-        SetLightState(true);
-        _stayActive = true;
     }
 }

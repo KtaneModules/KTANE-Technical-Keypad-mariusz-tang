@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class ButtonHatch : MonoBehaviour
 {
     [SerializeField] private Button _button;
@@ -25,5 +24,4 @@ public class ButtonHatch : MonoBehaviour
 
     public void Open() => _animator.SetBool("ShouldOpen", true);
     public void Close() => _animator.SetBool("ShouldOpen", false);
-
 }

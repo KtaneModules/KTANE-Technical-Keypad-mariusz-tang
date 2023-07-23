@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(TextMesh))]
 public class ColourblindText : MonoBehaviour
@@ -15,7 +13,6 @@ public class ColourblindText : MonoBehaviour
         _textMesh = GetComponent<TextMesh>();
         _mainColor = _textMesh.color;
         Value = "";
-        
         GetComponentInParent<TechnicalKeypadModule>().OnSetColourblindMode += (shouldEnable) => { _textMesh.color = shouldEnable ? _mainColor : Color.black * 0; };
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 using Rnd = UnityEngine.Random;
 
 [RequireComponent(typeof(TextMesh))]
 public class Display : MonoBehaviour
 {
     private const int s_flickerRepeats = 3;
-
     private readonly Color _full = new Color(113 / 255f, 113 / 255f, 113 / 255f, 1);
     private readonly Color _half = new Color(50 / 255f, 50 / 255f, 50 / 255f, 1);
     private readonly WaitForSeconds _flickerInterval = new WaitForSeconds(.03f);

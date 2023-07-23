@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressBar : MonoBehaviour
@@ -31,8 +30,6 @@ public class ProgressBar : MonoBehaviour
         _successBar.localPosition = Vector3.up * s_emptyPosition;
     }
 #pragma warning restore IDE0051
-
-    public void StopFillRoutine() => StopCoroutine(_fillAnimation);
 
     private IEnumerator DoFillAnimation() {
         while (true) {

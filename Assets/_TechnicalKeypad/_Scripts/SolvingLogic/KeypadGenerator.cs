@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Rnd = UnityEngine.Random;
 
 public static class KeypadGenerator
@@ -35,11 +34,12 @@ public static class KeypadGenerator
     public static KeypadInfo GenerateKeypad() {
         int[] intersectionPositions;
         string digits = GetDigits(out intersectionPositions);
-        bool green = Rnd.Range(0, 2) == 1;
-        bool yellow = Rnd.Range(0, 2) == 1;
+
         // Guarantee that at least three rules need to be followed.
         bool red = intersectionPositions.Length >= 3 && (intersectionPositions.Length > 6 || Rnd.Range(0, 2) == 1);
-        
+        bool yellow = Rnd.Range(0, 2) == 1;
+        bool green = Rnd.Range(0, 2) == 1;
+
         return new KeypadInfo(digits, GetRandomKeyColours(), intersectionPositions, red, yellow, green);
     }
 
@@ -53,51 +53,60 @@ public static class KeypadGenerator
         var interPoints = new List<int>();
 
         for (int ix = 0; ix < 9; ix++) {
-            var pos = positions[ix];
-            var rowPair = rowPairs[pos / 3];
-            var colPair = colPairs[pos % 3];
+            int pos = positions[ix];
+            List<int> rowPair = rowPairs[pos / 3];
+            List<int> colPair = colPairs[pos % 3];
 
-            if (ix < pairDigits.Length) {
-                var pairDigit = pairDigits[ix];
-
-                if (rowPair.Count < 2 && colPair.Count < 2) {
-                    rowPair.Add(pairDigit);
-                    colPair.Add(pairDigit);
-                }
-                else if (rowPair.Count < 2)
-                    rowPair.Add(colPair.PickRandom());
-                else
-                    colPair.Add(rowPair.PickRandom());
-            }
-            else {
-                int tryDigit;
-                if (rowPair.Count < 2) {
-                    tryDigit = Rnd.Range(0, 10 - colPair.Count);
-                    while (rowPair.Contains(tryDigit))
-                        tryDigit = (tryDigit + 1) % 10;
-                    rowPair.Add(tryDigit);
-                }
-                if (colPair.Count < 2) {
-                    tryDigit = Rnd.Range(0, 10 - colPair.Count);
-                    while (colPair.Contains(tryDigit))
-                        tryDigit = (tryDigit + 1) % 10;
-                    colPair.Add(tryDigit);
-                }
-            }
+            if (ix < pairDigits.Length)
+                AssignPairDigits(rowPair, colPair, pairDigits[ix]);
+            else
+                AssignRandomDigits(rowPair, colPair);
         }
-        foreach (int pos in positions) {
+
+        var pairLists = new List<int>[][] { rowPairs, colPairs };
+        string digitText = string.Empty;
+        foreach (int[] coord in s_digitArrangement)
+            digitText += pairLists[coord[0]][coord[1]][coord[2]];
+
+        intersectionPositions = GetIntersectionPositions(rowPairs, colPairs);
+        return digitText;
+    }
+
+    private static void AssignPairDigits(List<int> rowPair, List<int> colPair, int digit) {
+        if (rowPair.Count < 2 && colPair.Count < 2) {
+            rowPair.Add(digit);
+            colPair.Add(digit);
+        }
+        else if (rowPair.Count < 2)
+            rowPair.Add(colPair.PickRandom());
+        else
+            colPair.Add(rowPair.PickRandom());
+    }
+
+    private static void AssignRandomDigits(List<int> rowPair, List<int> colPair) {
+        int tryDigit;
+        if (rowPair.Count < 2) {
+            tryDigit = Rnd.Range(0, 10 - colPair.Count);
+            while (rowPair.Contains(tryDigit))
+                tryDigit = (tryDigit + 1) % 10;
+            rowPair.Add(tryDigit);
+        }
+        if (colPair.Count < 2) {
+            tryDigit = Rnd.Range(0, 10 - colPair.Count);
+            while (colPair.Contains(tryDigit))
+                tryDigit = (tryDigit + 1) % 10;
+            colPair.Add(tryDigit);
+        }
+    }
+
+    private static int[] GetIntersectionPositions(List<int>[] rowPairs, List<int>[] colPairs) {
+        var interPoints = new List<int>();
+        for (int pos = 0; pos < 9; pos++) {
             var rowPair = rowPairs[pos / 3];
             var colPair = colPairs[pos % 3];
             if (rowPair.Any(d => colPair.Contains(d)))
                 interPoints.Add(pos);
         }
-        var pairLists = new List<int>[][] { rowPairs, colPairs };
-        string digitText = string.Empty;
-
-        foreach (int[] coord in s_digitArrangement)
-            digitText += pairLists[coord[0]][coord[1]][coord[2]];
-
-        intersectionPositions = interPoints.ToArray();
-        return digitText;
+        return interPoints.ToArray();
     }
 }
