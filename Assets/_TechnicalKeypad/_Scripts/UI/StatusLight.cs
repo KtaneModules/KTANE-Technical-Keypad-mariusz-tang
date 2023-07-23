@@ -49,7 +49,7 @@ public class StatusLight : MonoBehaviour
         _stayActive = false;
         SetLightColour(Color.red);
         SetLightState(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1);
         SetLightState(false);
     }
 

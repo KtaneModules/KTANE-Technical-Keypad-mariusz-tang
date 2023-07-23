@@ -71,11 +71,15 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     private void DoOnInitialFocusSetup() {
         _ledStates = _keypadInfo.LedStates;
-        for (int pos = 0; pos < 3; pos++)
-            _leds[pos].SetState(_ledStates[pos]);
+        SetLightStates();
 
         _digitDisplay.Text = _keypadInfo.Digits;
         _digitDisplay.Enable();
+
+        Log("Buttons are numbered 0-8 in reading order.");
+        Log($"The displayed digits are {_keypadInfo.Digits}");
+        Log($"The colours are, in reading order, {_keypadInfo.Colours.Join(", ").ToLower()}.");
+        Log($"The leds, from top to bottom, are {_keypadInfo.LedStates.Select(s => s ? "on" : "off").Join(", ")}.");
 
         _correctActions = KeypadSolver.GenerateSolution(_keypadInfo, _bombInfo, Log);
         _currentAction = _correctActions[0];
@@ -84,10 +88,6 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _audio.PlaySoundAtTransform("Activate", transform);
         _hasActivated = true;
 
-        Log("Buttons are numbered 0-8 in reading order.");
-        Log($"The displayed digits are {_keypadInfo.Digits}");
-        Log($"The colours are, in reading order, {_keypadInfo.Colours.Join(", ").ToLower()}.");
-        Log($"The leds, from top to bottom, are {_keypadInfo.LedStates.Select(s => s ? "on" : "off").Join(", ")}.");
         LogCurrentRule();
     }
 
@@ -180,6 +180,11 @@ public partial class TechnicalKeypadModule : MonoBehaviour
             Log($"Current Rule: tap button(s) {_currentExpectedPresses.Join(", ")}.");
     }
 
+    private void SetLightStates() {
+        for (int pos = 0; pos < 3; pos++)
+            _leds[pos].SetState(_ledStates[pos]);
+    }
+
     public void Log(string message) => Debug.Log($"[Technical Keypad #{_moduleId}] {message}");
 
     public void Strike(string message) {
@@ -187,12 +192,15 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         Log($"✕ {message}");
         Log("Resetting.");
 
+        _digitDisplay.Enable();
+        _leds[0].Disable();
+        _leds[1].Disable();
+        _leds[2].Enable();
+        Invoke(nameof(SetLightStates), 1);
+
         _submitHatch.Close();
         _progressBar.FillLevel = 0;
         _progressBar.FillRate = 0;
-
-        for (int pos = 0; pos < 3; pos++)
-            _leds[pos].SetState(_ledStates[pos]);
 
         _currentActionIndex = 0;
         _currentAction = _correctActions[_currentActionIndex];
