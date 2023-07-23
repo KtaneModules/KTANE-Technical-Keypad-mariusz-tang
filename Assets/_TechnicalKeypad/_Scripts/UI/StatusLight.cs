@@ -18,7 +18,10 @@ public class StatusLight : MonoBehaviour
     private Coroutine _lightStateTransition;
 
 #pragma warning disable IDE0051
-    private void Awake() => StartCoroutine(Spin());
+    private void Awake() {
+        _spinner.Rotate(UnityEngine.Random.Range(0, 360f) * Vector3.right);
+        StartCoroutine(Spin());
+    }
 
     private void Start() {
         var module = GetComponentInParent<TechnicalKeypadModule>();
