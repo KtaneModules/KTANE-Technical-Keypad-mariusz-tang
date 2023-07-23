@@ -79,6 +79,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _correctActions = KeypadSolver.GenerateSolution(_keypadInfo, _bombInfo, Log);
         _currentAction = _correctActions[0];
         _currentExpectedPresses = _currentAction.ValidButtons;
+
+        _audio.PlaySoundAtTransform("Activate", transform);
         _hasActivated = true;
 
         Log("Buttons are numbered 0-8 in reading order.");

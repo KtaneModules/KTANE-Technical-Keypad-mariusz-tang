@@ -8467,6 +8467,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _digitDisplay: {fileID: 114269840984441404}
+  _leds:
+  - {fileID: 114566802363106120}
+  - {fileID: 114422488804932526}
+  - {fileID: 114074714633826684}
   _buttons:
   - {fileID: 114842194362929570}
   - {fileID: 114522933628674814}
@@ -8477,10 +8481,6 @@ MonoBehaviour:
   - {fileID: 114658957284699302}
   - {fileID: 114941477710338516}
   - {fileID: 114882611354678022}
-  _leds:
-  - {fileID: 114566802363106120}
-  - {fileID: 114422488804932526}
-  - {fileID: 114074714633826684}
   _submitHatch: {fileID: 114537118289933326}
   _progressBar: {fileID: 114138668199335712}
   _statusLightSelectable: {fileID: 114434571869163510}
