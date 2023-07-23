@@ -19,6 +19,6 @@ public class KeypadAction
 
     public static KeypadAction CreatePressAction(params int[] validButtons) => new KeypadAction(validButtons);
     public static KeypadAction CreatePressAction(IEnumerable<int> validButtons) => new KeypadAction(validButtons);
-    
+
     public static KeypadAction CreateHoldAction(int validButton, int holdTime) => new KeypadAction(validButton) { IsHoldAction = true, HoldTime = holdTime };
 }

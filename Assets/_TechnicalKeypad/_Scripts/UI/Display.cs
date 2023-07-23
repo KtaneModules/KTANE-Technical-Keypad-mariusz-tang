@@ -43,7 +43,7 @@ public class Display : MonoBehaviour
 
     private IEnumerator FlickerOn() {
         yield return _flickerInterval;
-                    for (int i = 0; i < s_flickerRepeats; i++) {
+        for (int i = 0; i < s_flickerRepeats; i++) {
             _mesh.color = _half;
             yield return _flickerInterval;
             _mesh.color = _full;

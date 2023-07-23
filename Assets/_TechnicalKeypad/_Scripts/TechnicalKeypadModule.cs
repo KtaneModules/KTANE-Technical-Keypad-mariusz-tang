@@ -24,6 +24,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     private static int s_moduleCount;
     private int _moduleId;
+    private bool _isSolved;
     private bool _hasActivated;
 
     private KeypadInfo _keypadInfo;
@@ -91,6 +92,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     }
 
     private void HandleInteract(int button, int holdTime) {
+        if (_isSolved)
+            return;
         if (holdTime > 0) {
             if (!_currentAction.IsHoldAction)
                 Strike("You held a button when you were not supposed to!");
@@ -201,6 +204,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     public void Solve() {
         _module.HandlePass();
+        _isSolved = true;
         Log("◯ Module solved.");
 
         _audio.PlaySoundAtTransform("Solve", transform);
@@ -208,5 +212,6 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _leds[1].Disable();
         _leds[2].Disable();
         _digitDisplay.Disable();
+        Array.ForEach(_buttons, b => b.Enable());
     }
 }

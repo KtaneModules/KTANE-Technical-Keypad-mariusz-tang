@@ -6,7 +6,7 @@ public class ButtonHatch : MonoBehaviour
     [SerializeField] private Button _button;
 
     private Animator _animator;
-    
+
     public KMSelectable Selectable { get; private set; }
 
 #pragma warning disable IDE0051
