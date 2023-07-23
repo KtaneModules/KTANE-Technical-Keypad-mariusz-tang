@@ -60,12 +60,12 @@ public partial class TechnicalKeypadModule : MonoBehaviour
                         _leds[pos].Enable();
                 }
                 _digitDisplay.Enable();
-                _hasActivated = true;
                 DoInitialLogging();
                 _correctActions = KeypadSolver.GenerateSolution(_keypadInfo, _bombInfo, Log);
                 _currentAction = _correctActions[0];
                 _currentExpectedPresses = _currentAction.ValidButtons;
                 LogCurrentRule();
+                _hasActivated = true;
             }
         };
 
@@ -197,6 +197,10 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _module.HandleStrike();
         Log($"✕ {message}");
         Log("Resetting.");
+
+        bool[] ledStates = _keypadInfo.LedStates;
+        for (int pos = 0; pos < 3; pos++)
+            _leds[pos].SetState(ledStates[pos]);
 
         _submitHatch.Close();
         _progressBar.FillLevel = 0;
