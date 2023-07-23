@@ -6,7 +6,7 @@ using Rnd = UnityEngine.Random;
 [RequireComponent(typeof(TextMesh))]
 public class Display : MonoBehaviour
 {
-    private const int _flickerRepeats = 3;
+    private const int s_flickerRepeats = 3;
 
     private readonly Color _full = new Color(113 / 255f, 113 / 255f, 113 / 255f, 1);
     private readonly Color _half = new Color(50 / 255f, 50 / 255f, 50 / 255f, 1);
@@ -44,7 +44,7 @@ public class Display : MonoBehaviour
 
     private IEnumerator FlickerOn() {
         yield return _flickerInterval;
-                    for (int i = 0; i < _flickerRepeats; i++) {
+                    for (int i = 0; i < s_flickerRepeats; i++) {
             _mesh.color = _half;
             yield return _flickerInterval;
             _mesh.color = _full;
@@ -53,7 +53,7 @@ public class Display : MonoBehaviour
     }
 
     private IEnumerator FlickerOff() {
-        for (int i = 0; i < _flickerRepeats; i++) {
+        for (int i = 0; i < s_flickerRepeats; i++) {
             _mesh.color = _full;
             yield return _flickerInterval;
             _mesh.color = _half;

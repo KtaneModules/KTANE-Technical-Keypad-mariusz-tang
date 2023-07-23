@@ -15,9 +15,9 @@ public class Button : MonoBehaviour
     protected virtual void Awake() {
         _audio = GetComponentInParent<KMAudio>();
         _animator = GetComponent<Animator>();
-        _highlight = GetComponentInChildren<KMHighlightable>();
-        
         Selectable = GetComponent<KMSelectable>();
+        _highlight = Selectable.Highlight;
+
         Selectable.OnInteract += () => {
             _animator.SetBool("IsPressed", true);
             if (!string.IsNullOrEmpty(_buttonPressSound))

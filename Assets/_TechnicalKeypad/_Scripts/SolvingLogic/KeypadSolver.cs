@@ -44,11 +44,16 @@ public class KeypadSolver
         _logger($"The buttons which apply are {buttons.Join(", ")} (positions in reading order).");
 
         _correctActions = buttons.Select(b => GetActionFromButton(b, colours[b])).ToArray();
+
+        _logger("The correct actions are as follows:");
+        foreach (KeypadAction action in _correctActions)
+            _logger($"Hold: {action.IsHoldAction}. Valid buttons: {action.ValidButtons.Join(", ")}");
     }
 
     private int[] GetOrderedButtonList() {
         _colourOrder = GetColourOrder();
-        int[] unsortedButtons = _keypadInfo.RedIsLit ? _keypadInfo.IntersectionPositions : Enumerable.Range(0, 9).Except(_keypadInfo.IntersectionPositions).ToArray();
+        int[] interPositions = _bombInfo.IsPortPresent(Port.Parallel) ? _keypadInfo.IntersectionPositions.Select(p => 2 - p % 3 + 3 * (p / 3)).ToArray() : _keypadInfo.IntersectionPositions;
+        int[] unsortedButtons = _keypadInfo.RedIsLit ? interPositions : Enumerable.Range(0, 9).Except(interPositions).ToArray();
 
         _sortedButtonOrder = Enumerable
             .Range(0, 9)
@@ -63,12 +68,14 @@ public class KeypadSolver
 
     private string GetColourOrder() {
         string order;
-        int lastSerialDigit = _bombInfo.GetSerialNumberNumbers().Last();
+        int digitToUse = _bombInfo.GetSerialNumberNumbers().Last() - 1;
+        if (digitToUse < 0)
+            digitToUse = 0;
 
         if (_keypadInfo.GreenIsLit)
-            order = s_colourTable[lastSerialDigit];
+            order = s_colourTable[digitToUse];
         else
-            order = s_colourTable.Select(seq => seq[lastSerialDigit]).Join("");
+            order = s_colourTable.Select(seq => seq[digitToUse]).Join("");
 
         if (_keypadInfo.YellowIsLit)
             order = order.Reverse().Join("");
@@ -111,11 +118,11 @@ public class KeypadSolver
         if (colour == KeyColour.Red) {
             if (row + 1 < 3)
                 validButtons.Add(getPos(col, row + 1));
-            if (row - 1 < 3)
+            if (row - 1 >= 0)
                 validButtons.Add(getPos(col, row - 1));
             if (col + 1 < 3)
                 validButtons.Add(getPos(col + 1, row));
-            if (col - 1 < 3)
+            if (col - 1 >= 0)
                 validButtons.Add(getPos(col - 1, row));
             return KeypadAction.CreatePressAction(validButtons);
         }
@@ -123,13 +130,13 @@ public class KeypadSolver
             if (col + 1 < 3) {
                 if (row + 1 < 3)
                     validButtons.Add(getPos(col + 1, row + 1));
-                if (row - 1 < 3)
+                if (row - 1 >= 0)
                     validButtons.Add(getPos(col + 1, row - 1));
             }
-            if (col - 1 < 3) {
+            if (col - 1 >= 0) {
                 if (row + 1 < 3)
                     validButtons.Add(getPos(col - 1, row + 1));
-                if (row - 1 < 3)
+                if (row - 1 >= 0)
                     validButtons.Add(getPos(col - 1, row - 1));
             }
             return KeypadAction.CreatePressAction(validButtons);
