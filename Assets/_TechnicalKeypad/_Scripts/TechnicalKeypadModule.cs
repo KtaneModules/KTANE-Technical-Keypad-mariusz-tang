@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using KModkit;
 using UnityEngine;
@@ -27,7 +28,11 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private bool _isColourblindMode;
 
     private KeypadInfo _keypadInfo;
-    private KeypadSolver _solver;
+    private KeypadAction[] _correctActions;
+    private KeypadAction _currentAction;
+    private int _currentActionIndex;
+    private int[] _currentExpectedPresses;
+    private List<int> _currentPresses = new List<int>();
 
 #pragma warning disable IDE0051
     private void Awake() {
@@ -54,7 +59,10 @@ public partial class TechnicalKeypadModule : MonoBehaviour
                 _digitDisplay.Enable();
                 _hasActivated = true;
                 DoInitialLogging();
-                _solver = new KeypadSolver(_keypadInfo, _bombInfo, Log);
+                _correctActions = KeypadSolver.GenerateSolution(_keypadInfo, _bombInfo, Log);
+                _currentAction = _correctActions[0];
+                _currentExpectedPresses = _currentAction.ValidButtons;
+                LogCurrentRule();
             }
         };
 
@@ -64,13 +72,17 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     private void Start() {
         // TODO: Order this in a sensible manner.
+        // TODO: Clean up the logging in KeypadSolver
         OnSetColourblindMode(GetComponent<KMColorblindMode>().ColorblindModeActive);
         _keypadInfo = KeypadGenerator.GenerateKeypad();
 
         _digitDisplay.Text = _keypadInfo.Digits;
 
-        for (int pos = 0; pos < 9; pos++)
+        for (int pos = 0; pos < 9; pos++) {
             _buttons[pos].Colour = _keypadInfo.Colours[pos];
+            int dummy = pos;
+            _buttons[pos].OnInteract += (heldTicks) => HandleInteract(dummy, heldTicks);
+        }
 
         Log("Focus the module to begin.");
     }
@@ -80,6 +92,58 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     private void OnBombExploded() { }
     private void OnBombSolved() { }
+
+    private void HandleInteract(int button, int holdTime) {
+        if (holdTime > 0) {
+            if (!_currentAction.IsHoldAction)
+                Strike("You held a button when you were not supposed to!");
+            else if (!_currentExpectedPresses.Contains(button))
+                Strike($"You incorrectly held button {button}!");
+            else if (_currentAction.HoldTime != holdTime)
+                Strike($"You held button {button} for {holdTime} beep(s) when I expected {_currentAction.HoldTime}!");
+            else {
+                Log($"Correctly held button {button} for {holdTime} beep(s).");
+                AdvanceAction();
+            }
+        }
+        else {
+            if (_currentAction.IsHoldAction)
+                Strike("You tapped a button when you were expected to hold one!");
+            else if (_currentPresses.Contains(button))
+                Strike($"You pressed button {button} again when you had already pressed it for the current rule!");
+            else if (!_currentExpectedPresses.Contains(button))
+                Strike($"You incorrectly tapped button {button}!");
+            else {
+                Log($"Correctly tapped button {button}.");
+                _currentPresses.Add(button);
+                if (_currentPresses.Count == _currentExpectedPresses.Length)
+                    AdvanceAction();
+            }
+        }
+    }
+
+    private void AdvanceAction() {
+        Log("Rule passed.");
+        _currentActionIndex++;
+
+        if (_currentActionIndex >= _correctActions.Length) {
+            Solve();
+            return;
+        }
+
+        _currentAction = _correctActions[_currentActionIndex];
+        _currentExpectedPresses = _currentAction.ValidButtons;
+        _currentPresses = new List<int>();
+
+        LogCurrentRule();
+    }
+
+    private void LogCurrentRule() {
+        if (_currentAction.IsHoldAction)
+            Log($"Current Rule: hold button {_currentExpectedPresses[0]} for {_currentAction.HoldTime} beep(s).");
+        else
+            Log($"Current Rule: tap buttons {_currentExpectedPresses.Join(", ")}.");
+    }
 
     private void DoInitialLogging() {
         Log($"The displayed digits are {_keypadInfo.Digits}");
@@ -92,8 +156,15 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     }
 
     public void Strike(string message) {
-        Log($"✕ {message}");
         _module.HandleStrike();
+        Log($"✕ {message}");
+        Log("Resetting");
+
+        _currentActionIndex = 0;
+        _currentAction = _correctActions[_currentActionIndex];
+        _currentExpectedPresses = _currentAction.ValidButtons;
+        _currentPresses = new List<int>();
+        LogCurrentRule();
     }
 
     public void Solve() {

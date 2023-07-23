@@ -6,14 +6,14 @@ public class Button : MonoBehaviour
     [SerializeField] private string _buttonPressSound;
     [SerializeField] private string _buttonReleaseSound;
 
-    private KMAudio _audio;
+    protected KMAudio Audio;
     private Animator _animator;
     private KMHighlightable _highlight;
 
     public KMSelectable Selectable { get; private set; }
 
     protected virtual void Awake() {
-        _audio = GetComponentInParent<KMAudio>();
+        Audio = GetComponentInParent<KMAudio>();
         _animator = GetComponent<Animator>();
         Selectable = GetComponent<KMSelectable>();
         _highlight = Selectable.Highlight;
@@ -21,13 +21,13 @@ public class Button : MonoBehaviour
         Selectable.OnInteract += () => {
             _animator.SetBool("IsPressed", true);
             if (!string.IsNullOrEmpty(_buttonPressSound))
-                _audio.PlaySoundAtTransform(_buttonPressSound, transform);
+                Audio.PlaySoundAtTransform(_buttonPressSound, transform);
             return false;
         };
         Selectable.OnInteractEnded += () => {
             _animator.SetBool("IsPressed", false);
             if (!string.IsNullOrEmpty(_buttonReleaseSound))
-                _audio.PlaySoundAtTransform(_buttonReleaseSound, transform);
+                Audio.PlaySoundAtTransform(_buttonReleaseSound, transform);
         };
     }
 

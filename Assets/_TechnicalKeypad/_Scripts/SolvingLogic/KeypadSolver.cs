@@ -5,7 +5,7 @@ using System.Linq;
 using KModkit;
 using UnityEngine;
 
-public class KeypadSolver
+public static class KeypadSolver
 {
     private static string[] s_colourTable = new string[] {
         "GYTBWOPRK",
@@ -19,71 +19,67 @@ public class KeypadSolver
         "PTRWBYKGO",
     };
 
-    private KeypadInfo _keypadInfo;
-    private KMBombInfo _bombInfo;
+    private static KeypadInfo s_keypadInfo;
+    private static KMBombInfo s_bombInfo;
 
-    private string _colourOrder;
-    private int[] _sortedButtonOrder;
+    private static string s_colourOrder;
+    private static int[] s_sortedButtonOrder;
 
-    private Action<string> _logger;
+    private static Action<string> s_logger;
 
-    private KeypadAction[] _correctActions;
+    public static KeypadAction[] GenerateSolution(KeypadInfo keypadInfo, KMBombInfo bombInfo, Action<string> logger) {
+        s_keypadInfo = keypadInfo;
+        s_bombInfo = bombInfo;
+        s_logger = logger;
 
-    public KeypadSolver(KeypadInfo keypadInfo, KMBombInfo bombInfo, Action<string> logger) {
-        _keypadInfo = keypadInfo;
-        _bombInfo = bombInfo;
-        _logger = logger;
-        GenerateSolution();
-    }
-
-    private void GenerateSolution() {
         int[] buttons = GetOrderedButtonList();
-        KeyColour[] colours = _keypadInfo.Colours;
+        KeyColour[] colours = s_keypadInfo.Colours;
 
-        _logger($"The colour order is {_colourOrder}.");
-        _logger($"The buttons which apply are {buttons.Join(", ")} (positions in reading order).");
+        s_logger($"The colour order is {s_colourOrder}.");
+        s_logger($"The buttons which apply are {buttons.Join(", ")} (positions in reading order).");
 
-        _correctActions = buttons.Select(b => GetActionFromButton(b, colours[b])).ToArray();
+        KeypadAction[] _correctActions = buttons.Select(b => GetActionFromButton(b, colours[b])).ToArray();
 
-        _logger("The correct actions are as follows:");
-        foreach (KeypadAction action in _correctActions)
-            _logger($"Hold: {action.IsHoldAction}. Valid buttons: {action.ValidButtons.Join(", ")}");
+        s_logger("The correct actions are as follows:");
+        foreach (var action in _correctActions)
+            s_logger($"Hold: {action.IsHoldAction}. Valid buttons: {action.ValidButtons.Join(", ")}");
+        return _correctActions;
     }
 
-    private int[] GetOrderedButtonList() {
-        _colourOrder = GetColourOrder();
-        int[] interPositions = _bombInfo.IsPortPresent(Port.Parallel) ? _keypadInfo.IntersectionPositions.Select(p => 2 - p % 3 + 3 * (p / 3)).ToArray() : _keypadInfo.IntersectionPositions;
-        int[] unsortedButtons = _keypadInfo.RedIsLit ? interPositions : Enumerable.Range(0, 9).Except(interPositions).ToArray();
+    private static int[] GetOrderedButtonList() {
+        s_colourOrder = GetColourOrder();
+        int[] interPositions = s_bombInfo.IsPortPresent(Port.Parallel) ? s_keypadInfo.IntersectionPositions.Select(p => 2 - p % 3 + 3 * (p / 3)).ToArray() : s_keypadInfo.IntersectionPositions;
+        int[] unsortedButtons = s_keypadInfo.RedIsLit ? interPositions : Enumerable.Range(0, 9).Except(interPositions).ToArray();
 
-        _sortedButtonOrder = Enumerable
+        s_sortedButtonOrder = Enumerable
             .Range(0, 9)
-            .OrderBy(b => _colourOrder.IndexOf(
-                _keypadInfo.Colours[b] == KeyColour.White ? "W" :
-                _keypadInfo.Colours[b] == KeyColour.Black ? "K" :
-                _keypadInfo.Colours[b].ColourblindText
+            .OrderBy(b => s_colourOrder.IndexOf(
+                s_keypadInfo.Colours[b] == KeyColour.White ? "W" :
+                s_keypadInfo.Colours[b] == KeyColour.Black ? "K" :
+                s_keypadInfo.Colours[b].ColourblindText
             )).ToArray();
 
-        return _sortedButtonOrder.Where(b => unsortedButtons.Contains(b)).ToArray();
+        return s_sortedButtonOrder.Where(b => unsortedButtons.Contains(b)).ToArray();
     }
 
-    private string GetColourOrder() {
+    private static string GetColourOrder() {
         string order;
-        int digitToUse = _bombInfo.GetSerialNumberNumbers().Last() - 1;
+        int digitToUse = s_bombInfo.GetSerialNumberNumbers().Last() - 1;
         if (digitToUse < 0)
             digitToUse = 0;
 
-        if (_keypadInfo.GreenIsLit)
+        if (s_keypadInfo.GreenIsLit)
             order = s_colourTable[digitToUse];
         else
             order = s_colourTable.Select(seq => seq[digitToUse]).Join("");
 
-        if (_keypadInfo.YellowIsLit)
+        if (s_keypadInfo.YellowIsLit)
             order = order.Reverse().Join("");
 
         return order;
     }
 
-    private KeypadAction GetActionFromButton(int button, KeyColour colour) {
+    private static KeypadAction GetActionFromButton(int button, KeyColour colour) {
         int row = button / 3;
         int col = button % 3;
 
@@ -91,24 +87,24 @@ public class KeypadSolver
 
         // TODO: Turn this into a dictionary.
         if (colour == KeyColour.White) {
-            int holdTime = _bombInfo.GetBatteryCount() + 1;
-            _logger($"Button {button} is {colour.Name.ToLower()}. {colour.RuleLogging.Replace("{0}", holdTime.ToString())}");
+            int holdTime = s_bombInfo.GetBatteryCount() + 1;
+            s_logger($"Button {button} is {colour.Name.ToLower()}. {colour.RuleLogging.Replace("{0}", holdTime.ToString())}");
             return KeypadAction.CreateHoldAction(button, holdTime);
         }
         if (colour == KeyColour.Black) {
-            int holdTime = _bombInfo.GetIndicators().Count() + 1;
-            _logger($"Button {button} is {colour.Name.ToLower()}. {colour.RuleLogging.Replace("{0}", holdTime.ToString())}");
+            int holdTime = s_bombInfo.GetIndicators().Count() + 1;
+            s_logger($"Button {button} is {colour.Name.ToLower()}. {colour.RuleLogging.Replace("{0}", holdTime.ToString())}");
             return KeypadAction.CreateHoldAction(button, holdTime);
         }
 
-        _logger($"Button {button} is {colour.Name.ToLower()}. {colour.RuleLogging}");
+        s_logger($"Button {button} is {colour.Name.ToLower()}. {colour.RuleLogging}");
 
         if (colour == KeyColour.Blue) // All except this one.
-            return KeypadAction.CreatePressAction(Enumerable.Range(0, 9).Select(p => p >= button ? p + 1 : p));
+            return KeypadAction.CreatePressAction(Enumerable.Range(0, 8).Select(p => p >= button ? p + 1 : p));
         if (colour == KeyColour.Orange)
-            return KeypadAction.CreatePressAction(_sortedButtonOrder.TakeWhile(b => b != button).Concat(new int[] { button }));
+            return KeypadAction.CreatePressAction(s_sortedButtonOrder.TakeWhile(b => b != button).Concat(new int[] { button }));
         if (colour == KeyColour.Purple) // This one and all after it.
-            return KeypadAction.CreatePressAction(_sortedButtonOrder.Except(_sortedButtonOrder.TakeWhile(b => b != button)));
+            return KeypadAction.CreatePressAction(s_sortedButtonOrder.Except(s_sortedButtonOrder.TakeWhile(b => b != button)));
         if (colour == KeyColour.Teal)
             return KeypadAction.CreatePressAction(button, getPos(col, (row + 1) % 3), getPos(col, (row + 2) % 3));
         if (colour == KeyColour.Yellow)

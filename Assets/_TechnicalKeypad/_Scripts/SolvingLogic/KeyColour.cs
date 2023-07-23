@@ -10,8 +10,8 @@ public class KeyColour
     public static readonly KeyColour Blue = new KeyColour("Blue", 23, 93, 135, "Press every button except this one.");
     public static readonly KeyColour Teal = new KeyColour("Teal", 24, 68, 77, "Press every button in the same column as this one.");
     public static readonly KeyColour Purple = new KeyColour("Purple", 63, 29, 105, "Press this button and all buttons after this one in the colour order.");
-    public static readonly KeyColour White = new KeyColour("White", 122, 122, 122, colourblindText: "",ruleLogging: "Hold this button for {0} beeps.");
-    public static readonly KeyColour Black = new KeyColour("Black", 28, 28, 28, colourblindText: "", ruleLogging: "Hold this button for {0} beeps.");
+    public static readonly KeyColour White = new KeyColour("White", 122, 122, 122, colourblindText: "",ruleLogging: "Hold this button for {0} beep(s).");
+    public static readonly KeyColour Black = new KeyColour("Black", 28, 28, 28, colourblindText: "", ruleLogging: "Hold this button for {0} beep(s).");
 #pragma warning restore IDE1006
 
     public string Name { get; private set; }
