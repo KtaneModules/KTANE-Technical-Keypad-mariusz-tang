@@ -31,6 +31,7 @@ public class StatusLight : MonoBehaviour
         modSelectable.OnFocus += () => _isActive = true;
         modSelectable.OnDefocus += () => _isActive = false;
 
+        // This will not work in testharness, but it works in-game.
         var moduleModComp = module.GetComponent<KMBombModule>();
         moduleModComp.OnStrike += () => { StopStrikeFlash(); _strikeFlash = StartCoroutine(DoStrikeFlash()); return false; };
         moduleModComp.OnPass += () => { EnterSolveState(); return false; };

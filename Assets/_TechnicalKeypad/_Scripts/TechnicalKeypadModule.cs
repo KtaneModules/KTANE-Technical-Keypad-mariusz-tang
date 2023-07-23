@@ -26,6 +26,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private int _moduleId;
     private bool _isSolved;
     private bool _hasActivated;
+    private bool _sirenStateActive;
 
     private KeypadInfo _keypadInfo;
     private bool[] _ledStates;
@@ -43,6 +44,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _bombInfo = GetComponent<KMBombInfo>();
         _audio = GetComponent<KMAudio>();
         _module = GetComponent<KMBombModule>();
+        _module.OnActivate += () => { if (TwitchPlaysActive) { DoOnInitialFocusSetup(); GetButtonColours(); } };
 
         _keypadInfo = KeypadGenerator.GenerateKeypad();
         GetComponent<KMSelectable>().OnFocus += () => { if (!_hasActivated) { DoOnInitialFocusSetup(); } };
@@ -150,6 +152,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     }
 
     private IEnumerator TrackSirenState() {
+        _sirenStateActive = true;
         float timeElapsed = 0f;
         int intTimeHeld = 0;
         while (_progressBar.FillLevel > .01f && _progressBar.FillLevel < .99f) {
@@ -171,6 +174,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
             _submitHatch.Close();
             Solve();
         }
+
+        _sirenStateActive = false;
     }
 
     private void LogCurrentRule() {
