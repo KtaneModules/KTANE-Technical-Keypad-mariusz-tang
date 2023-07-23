@@ -14,6 +14,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     [SerializeField] private ButtonHatch _submitHatch;
     [SerializeField] private ProgressBar _progressBar;
     [SerializeField] private KMSelectable _statusLightSelectable;
+    [SerializeField] private StatusLight _statusLight;
 
     public event Action<bool> OnSetColourblindMode;
 
@@ -47,6 +48,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _bombInfo.OnBombExploded += OnBombExploded;
         _bombInfo.OnBombSolved += OnBombSolved;
 
+
+        _keypadInfo = KeypadGenerator.GenerateKeypad();
         // ! Move this to after we get _keypadInfo.
         var modSelectable = GetComponent<KMSelectable>();
         modSelectable.OnFocus += () => {
@@ -74,7 +77,6 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         // TODO: Order this in a sensible manner.
         // TODO: Clean up the logging in KeypadSolver
         OnSetColourblindMode(GetComponent<KMColorblindMode>().ColorblindModeActive);
-        _keypadInfo = KeypadGenerator.GenerateKeypad();
 
         _digitDisplay.Text = _keypadInfo.Digits;
 
@@ -83,6 +85,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
             int dummy = pos;
             _buttons[pos].OnInteract += (heldTicks) => HandleInteract(dummy, heldTicks);
         }
+
+        _submitHatch.Selectable.OnInteract += () => { _progressBar.FillLevel += 0.03f; _submitHatch.Selectable.AddInteractionPunch(); return false; };
 
         Log("Focus the module to begin.");
     }
@@ -125,9 +129,10 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private void AdvanceAction() {
         Log("Rule passed.");
         _currentActionIndex++;
+        _progressBar.FillLevel = 0.5f * _currentActionIndex / _correctActions.Length;
 
         if (_currentActionIndex >= _correctActions.Length) {
-            Solve();
+            EnterSubmitState();
             return;
         }
 
@@ -136,6 +141,39 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         _currentPresses = new List<int>();
 
         LogCurrentRule();
+    }
+
+    private void EnterSubmitState() {
+        Array.ForEach(_buttons, b => b.Disable());
+        _submitHatch.Open();
+        _audio.PlaySoundAtTransform("Siren", transform);
+        _progressBar.FillRate = -0.1f;
+        _statusLight.EnterSirenState();
+        StartCoroutine(WatchProgressBar());
+    }
+
+    private IEnumerator WatchProgressBar() {
+        var timeElapsed = 0f;
+        int intTimeHeld = 0;
+        while (_progressBar.FillLevel > 0.01f && _progressBar.FillLevel < 0.99f) {
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            if (timeElapsed > intTimeHeld) {
+                intTimeHeld++;
+                _audio.PlaySoundAtTransform("HoldBeep", transform);
+                _leds[0].SetState(intTimeHeld % 2 == 0);
+                _leds[1].SetState(intTimeHeld % 2 == 1);
+                _leds[2].SetState(intTimeHeld % 2 == 0);
+            }
+        }
+        if (_progressBar.FillLevel <= 0.01f)
+            Strike("You let the bar empty all the way!");
+        else {
+            _progressBar.FillRate = 0;
+            _progressBar.FillLevel = 1;
+            _submitHatch.Close();
+            Solve();
+        }
     }
 
     private void LogCurrentRule() {
@@ -152,23 +190,32 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     }
 
     public void Log(string message) {
-        Debug.Log($"[Module #{_moduleId}] {message}");
+        Debug.Log($"[Technical Keypad #{_moduleId}] {message}");
     }
 
     public void Strike(string message) {
         _module.HandleStrike();
         Log($"✕ {message}");
-        Log("Resetting");
+        Log("Resetting.");
 
+        _submitHatch.Close();
+        _progressBar.FillLevel = 0;
+        _progressBar.FillRate = 0;
         _currentActionIndex = 0;
         _currentAction = _correctActions[_currentActionIndex];
         _currentExpectedPresses = _currentAction.ValidButtons;
         _currentPresses = new List<int>();
+        Array.ForEach(_buttons, b => b.Enable());
         LogCurrentRule();
     }
 
     public void Solve() {
         Log("◯ Module solved.");
         _module.HandlePass();
+        _audio.PlaySoundAtTransform("Solve", transform);
+        _leds[0].Enable();
+        _leds[1].Disable();
+        _leds[2].Disable();
+        _digitDisplay.Disable();
     }
 }

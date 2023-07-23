@@ -87,10 +87,18 @@ public class StatusLight : MonoBehaviour
     }
 
     private IEnumerator DoStrikeFlash() {
+        _stayActive = false;
         SetLightColour(Color.red);
         SetLightState(true);
         yield return new WaitForSeconds(2f);
         SetLightState(false);
+    }
+
+    public void EnterSirenState() {
+        StopStrikeFlash();
+        SetLightColour(Color.red);
+        SetLightState(true);
+        _stayActive = true;
     }
 
     private void EnterSolveState() {
