@@ -42,7 +42,7 @@ public static class KeypadSolver
         s_logger($"The colour order is {colourOrder}.");
 
         int[] interPositions = s_bombInfo.IsPortPresent(Port.Parallel) ? s_keypadInfo.IntersectionPositions.Select(p => 2 - p % 3 + 3 * (p / 3)).ToArray() : s_keypadInfo.IntersectionPositions;
-        int[] unsortedButtons = s_keypadInfo.RedIsLit ? interPositions : Enumerable.Range(0, 9).Except(interPositions).ToArray();
+        int[] unsortedButtons = s_keypadInfo.RedIsLit ? Enumerable.Range(0, 9).Except(interPositions).ToArray() : interPositions;
 
         s_sortedButtonOrder = Enumerable
             .Range(0, 9)
