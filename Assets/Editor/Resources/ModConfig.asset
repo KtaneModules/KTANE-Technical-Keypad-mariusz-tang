@@ -14,7 +14,12 @@ MonoBehaviour:
   id: TechnicalKeypad
   title: Technical Keypad
   author: Kuro
-  description: yes
-  version: -1
+  description: "Unfortunately, our writers at KTaNE Inc. are currently on strike,
+    so we are only able to provide visual aids for defusing this module. In any case,
+    follow the directions and examples below. Good luck.\n\nPress the colourful keys
+    in the right order to solve this very technical module.\n\nSubmission for Modding
+    Jam #5.\nManual can be found at https://ktane.timwi.de or in the manuals folder
+    of your game.\r\nIdea by Cinnabar.\r\nReport bugs to ku.ro on Discord."
+  version: 1
   outputFolder: build
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: b64a2356d33e9a24db7176156c52a564, type: 3}
