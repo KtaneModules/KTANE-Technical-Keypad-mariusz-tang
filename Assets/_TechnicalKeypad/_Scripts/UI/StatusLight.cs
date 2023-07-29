@@ -56,7 +56,7 @@ public class StatusLight : MonoBehaviour
 
     public void EnterSirenState() {
         StopStrikeFlash();
-        SetLightColour(Color.yellow);
+        SetLightColour(Color.red);
         SetLightState(true);
         _stayActive = true;
     }

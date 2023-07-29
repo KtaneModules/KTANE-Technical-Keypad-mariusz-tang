@@ -15,18 +15,17 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     [SerializeField] private KMSelectable _statusLightSelectable;
     [SerializeField] private StatusLight _statusLight;
 
-    public event Action<bool> OnSetColourblindMode;
-    private bool _colourblindModeEnabled;
-
     private KMBombInfo _bombInfo;
     private KMAudio _audio;
     private KMBombModule _module;
 
     private static int s_moduleCount;
     private int _moduleId;
+
     private bool _isSolved;
     private bool _hasActivated;
     private bool _sirenStateActive;
+    private bool _colourblindModeEnabled;
 
     private KeypadInfo _keypadInfo;
     private bool[] _ledStates;
@@ -36,6 +35,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private int _currentActionIndex;
     private int[] _currentExpectedPresses;
     private List<int> _currentPresses = new List<int>();
+
+    public event Action<bool> OnSetColourblindMode;
 
 #pragma warning disable IDE0051
     private void Awake() {
@@ -50,8 +51,6 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         GetComponent<KMSelectable>().OnFocus += () => { if (!_hasActivated) { DoOnInitialFocusSetup(); } };
 
         OnSetColourblindMode += (value) => _colourblindModeEnabled = value;
-        _statusLightSelectable.OnInteract += () => { OnSetColourblindMode(!_colourblindModeEnabled); return false; };
-        OnSetColourblindMode(GetComponent<KMColorblindMode>().ColorblindModeActive);
     }
 
     private void Start() {
@@ -67,6 +66,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
             return false;
         };
 
+        _statusLightSelectable.OnInteract += () => { OnSetColourblindMode.Invoke(!_colourblindModeEnabled); return false; };
+        OnSetColourblindMode.Invoke(GetComponent<KMColorblindMode>().ColorblindModeActive);
         Log("Focus the module to begin.");
     }
 #pragma warning restore IDE0051
