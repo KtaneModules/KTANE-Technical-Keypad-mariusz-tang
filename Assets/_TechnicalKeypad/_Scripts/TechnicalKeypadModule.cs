@@ -36,6 +36,8 @@ public partial class TechnicalKeypadModule : MonoBehaviour
     private int[] _currentExpectedPresses;
     private List<int> _currentPresses = new List<int>();
 
+    private float _submitButtonPower;
+
     public event Action<bool> OnSetColourblindMode;
 
 #pragma warning disable IDE0051
@@ -61,7 +63,7 @@ public partial class TechnicalKeypadModule : MonoBehaviour
         }
 
         _submitHatch.Selectable.OnInteract += () => {
-            _progressBar.FillLevel += .03f;
+            _progressBar.FillLevel += _submitButtonPower;
             _submitHatch.Selectable.AddInteractionPunch();
             return false;
         };
@@ -154,11 +156,12 @@ public partial class TechnicalKeypadModule : MonoBehaviour
 
     private IEnumerator TrackSirenState() {
         _sirenStateActive = true;
-        float timeElapsed = 0f;
+        var timeElapsed = 0f;
         int intTimeHeld = 0;
         while (_progressBar.FillLevel > .01f && _progressBar.FillLevel < .99f) {
             yield return null;
             timeElapsed += Time.deltaTime;
+            _submitButtonPower = .03f + (timeElapsed - 2) * .01f;
             if (timeElapsed > intTimeHeld) {
                 intTimeHeld++;
                 _audio.PlaySoundAtTransform("HoldBeep", transform);
